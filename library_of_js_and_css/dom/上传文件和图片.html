@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上传图片和文件</title>
+  <style>
+    /* .inputfile {
+      display: none;
+    } */
+    /* .inputfile {
+      opacity: 0;
+    } */
+    /* 必须配合absolute使用，对区域进行剪切 */
+    .inputfile {
+      position: absolute; 
+      clip: rect(0 0 0 0); 
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <!-- 上传所有图片类型是<input type="file" accept="image/*"> -->
+    <!-- 但是在Chrome浏览器下，可能会有文件选择窗口打开慢的问题，因此，如果仅仅是上传图片，使用：<input type="file" accept="image/png, image/jpeg, image/gif, image/jpg"> -->
+    <input type="file" id="wenjianjia" webkitdirectory directory multiple/>
+    <label for="wenjianjia">上传文件夹</label>
+    <hr>
+    <input type="file" id="pdf" accept="application/pdf"/>
+    <label for="pdf">上传pdf文件</label>
+    <hr>
+    <input type="file" id="mp3" accept="audio/x-mpeg"/>
+    <label for="mp3">上传mp3文件</label>
+    <hr>
+    <input type="file" id="html" accept="text/html"/>
+    <label for="html">上传html文件</label>
+    <hr>
+    <input type="file" id="file" accept="image/png, image/jpeg, image/gif, image/jpg"/>
+    <label for="file">上传图片</label>
+    <hr>
+    <input type="file" id="images" class="inputfile" accept="image/gif, image/jpeg"/> 
+    <label for="images" class='btn btn-success'>Choose a file</label>
+    <!-- //filereader 的方法 -->
+    <form action="" enctype="multipart/form-data">
+      <input id="filepath" class="filepath" onchange="changepic(this)" type="file"><br>
+      <img src="" id="show" width="200">
+    </form>
+  </div>
+  <script>
+    function changepic() {
+      var reads= new FileReader();
+      f = document.getElementById('filepath').files[0];
+      reads.readAsDataURL(f);
+      reads.onload=function (e) {
+        document.getElementById('show').src=this.result;
+      };
+    }
+  </script>
+</body>
+</html>

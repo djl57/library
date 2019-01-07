@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <!-- 二、原理
+    用transform3d代替传统的滚动。
+    为什么用它,而不用top、margin-top，可以具体了解什么是回流(reflows)与重绘(repaints).
+    总结：兼容情况下，用它性能好（体验好）。不兼容就降级吧。 -->
+    <!-- 三、思路
+
+    通过手势信息来获取到坐标，出现手势如下：
+
+    1.慢速滑动
+    2.快速滑动
+    3.快速滑动后，滑动还没完成，触摸屏幕可以停止
+    
+    操作元素位移时，考虑如下几点：
+
+    1.向上滑动时，滑动到顶部就不能移动了，相当于可视区域的高度大于等于屏幕高度
+    2.向下滑动时，滑动到底部就不能移动了，相当于Y坐标不能大于0
+    3.计算加速度来判断是否快速滑动
+    touchmove过程获取最后3点信息(X坐标,Y坐标，时间)。然后计算他们的瞬时速度，最后计算出加速度，如果加速度超过一个数值，就是快速滑动。
+    4.快速滑动后，有减速效果然后静止
+    5.判断是上下滑动还是左右滑动
+    6.获取的坐标操作transform：translate3d（x,y,z）,需要判断浏览对它的兼容性。
+    7.快速移动时，触摸让滚动停止
+
+    首先理解transform工作原理和transform中的Matrix(矩阵)。touchstart时，去获取它的此时的坐标，可以通过获取matrix来获取坐标值：
+      matrix(a,b,c,d,e,f)
+      matrix(1, 0, 0, 1, 0, -100)
+    
+    本人总结的abcd不用管它是什么,只要知道e代表x坐标,f代表y坐标.当touchstart时，此时的x=0,y=-100;
+    let style = window.getComputedStyle(document.querySelector('.kz-section').children[0]);
+    
+    let matrix = style[transform].split(')')[0].split(', ');
+    
+    transformY = (Math.round(matrix[13]*100)/100) || (Math.round(matrix[5]*100)/100);
+    
+    注意：此时transform是变量，根据浏览器兼容性而定，它可能是transform、webkitTransform、MozTransform、msTransform、OTransform，具体实现查看源代码。
+    如果设置了transition-duration的值，触摸停止时，实际坐标和获取的transformY有误差，代码如下
+    let duration = 1000 //transition-duration的变量名
+    currentY = transformY + duration/1000 * pageY -->
+</body>
+</html>

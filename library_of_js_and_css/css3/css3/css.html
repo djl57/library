@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css</title>
+  <style>
+  .transform {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    transform: rotate(30deg);
+    background-color: #f60;
+    text-align: center;
+  }
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .box_shadow {
+    background-color: #f60;
+    box-shadow: 10px 10px 5px #888888;
+    margin-bottom: 30px;
+  }
+  .border_image {
+    border:15px solid transparent;
+  }
+  .round {
+    border-image:url('./images/border.png') 30 30 round;
+    -moz-border-image:url('./images/border.png') 30 30 round; /* 老的 Firefox */
+    -webkit-border-image:url('./images/border.png') 30 30 round; /* Safari 和 Chrome */
+    -o-border-image:url('./images/border.png') 30 30 round; /* Opera */
+  }
+  .stretch {
+    border-image:url('./images/border.png') 30 30 stretch;
+    -moz-border-image:url('./images/border.png') 30 30 stretch; /* 老的 Firefox */
+    -webkit-border-image:url('./images/border.png') 30 30 stretch; /* Safari 和 Chrome */
+    -o-border-image:url('./images/border.png') 30 30 stretch; /* Opera */
+  }
+  .text_shadow {
+    text-shadow: 5px 5px 5px #ff0000;
+  }
+  .word_wrap {
+    width: 128px;
+    word-wrap: break-word;
+  }
+  .text_overflow-clip {
+    width: 200px;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: clip;
+  }
+  .text_overflow-ellipsis {
+    width: 200px;
+    white-space:nowrap; 
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .text_overflow-string {
+    width: 200px;
+    white-space:nowrap; 
+    overflow:hidden;
+    text-overflow: 'haha';
+  }
+  .translate {
+    transform:translate(50px,100px);
+    -ms-transform:translate(50px,100px); /* IE 9 */
+    -moz-transform:translate(50px,100px); /* Firefox */
+    -webkit-transform:translate(50px,100px); /* Safari and Chrome */
+    -o-transform:translate(50px,100px); /* Opera */
+  }
+  .rotate {
+    width:100px;
+    height:75px;
+    background-color:yellow;
+    border:1px solid black;
+    transform:rotate(30deg);
+    -ms-transform:rotate(30deg); /* IE 9 */
+    -moz-transform:rotate(30deg); /* Firefox */
+    -webkit-transform:rotate(30deg); /* Safari and Chrome */
+    -o-transform:rotate(30deg); /* Opera */
+  }
+  .scale {
+    width:100px;
+    height:75px;
+    background-color:yellow;
+    border:1px solid black;
+    margin:150px;
+    transform:scale(2,4);
+    -ms-transform:scale(2,4); /* IE 9 */
+    -moz-transform:scale(2,4); /* Firefox */
+    -webkit-transform:scale(2,4); /* Safari and Chrome */
+    -o-transform:scale(2,4); /* Opera */
+  }
+  .skew {
+    width:100px;
+    height:75px;
+    background-color:yellow;
+    border:1px solid black;
+    transform:skew(30deg,20deg);
+    -ms-transform:skew(30deg,20deg); /* IE 9 */
+    -moz-transform:skew(30deg,20deg); /* Firefox */
+    -webkit-transform:skew(30deg,20deg); /* Safari and Chrome */
+    -o-transform:skew(30deg,20deg); /* Opera */
+  }
+  .transition {
+    width:100px;
+    height:100px;
+    background:yellow;
+    transition:width 2s;
+    -moz-transition:width 2s; /* Firefox 4 */
+    -webkit-transition:width 2s; /* Safari and Chrome */
+    -o-transition:width 2s; /* Opera */
+  }
+  .transition:hover{
+    width:300px;
+  }
+  .resize {
+    border:2px solid;
+    padding:10px 40px; 
+    width:300px;
+    resize:both;
+    overflow:auto;
+  }
+
+  </style>
+</head>
+<body>
+  <div class="transform">css3</div>
+  <div class="flex">
+    <ul>css3被划分为模块。最重要的css3模块包括：
+      <li>选择器</li>
+      <li>框模型</li>
+      <li>背景和边框</li>
+      <li>文本效果</li>
+      <li>2d，3d转换</li>
+      <li>动画</li>
+      <li>多列布局</li>
+      <li>用户界面</li>
+    </ul>
+    <ul>css3边框
+      <li>border-radius</li>
+      <li class="box_shadow">box-shadow</li>
+      <div class="border_image round">border-image图片铺满整个边框</div>
+      <div class="border_image stretch">border-image图片铺满整个边框</div>
+    </ul>
+    <ul>css3背景
+      <div>background-size调整背景图片的大小；对背景图片进行拉伸</div>
+      <div>background-origin border-box|padding-box|content-box</div>
+      <div>background-clip border-box|padding-box|content-box</div>
+    </ul>
+    <ul>css3文本效果
+      <div class="text_shadow">text-shadow文字阴影</div>
+      <div class="word_wrap">word-wrap字母（单词太长）自动换行</div>
+      <div>text-wrap规定文本换行规则</div>
+      <div class="text_overflow-clip">text-overflow文本溢出展示效果: 修剪文本。	</div>
+      <div class="text_overflow-ellipsis">text-overflow文本溢出展示效果: 省略符号	</div>
+      <div class="text_overflow-string">text-overflow文本溢出展示效果: 给定的字符串</div>
+    </ul>
+    <ul>css3字体
+      @font-face
+    </ul>
+    <ul>css3 2D转换transform。通过 CSS3 转换，我们能够对元素进行移动、缩放、转动、拉长或拉伸
+      <div class="translate">translate() 元素从其当前位置移动，根据给定的 left（x 坐标） 和 top（y 坐标） 位置参数</div>
+      <div class="rotate">rotate() 方法，元素顺时针旋转给定的角度。允许负值，元素将逆时针旋转。</div>
+      <div class="scale">scale() 方法，元素的尺寸会根据给定的宽度（X 轴）和高度（Y 轴）的数值成倍数增加或减少，</div>
+      <div class="skew">skew() 方法，元素翻转给定的角度，根据给定的水平线（X 轴）和垂直线（Y 轴）参数</div>
+      <div>matrix() 方法把所有 2D 转换方法组合在一起。
+        matrix() 方法需要六个参数，包含数学函数，允许您：旋转、缩放、移动以及倾斜元素
+      </div>
+      <div>transform-origin: x-axis y-axis z-axis; 设置旋转元素的基点位置
+        x-axis y-axis 可能的值：left center right length %
+        z-axis 可能的值：length  定义视图被置于 Z 轴的何处
+      </div>
+    </ul>
+    <ul>css3 3D转换
+      <div>rotateX()
+          rotateY()</div>
+    </ul>
+    <ul>css3过渡
+      <div class="transition">transition</div>
+    </ul>
+    <ul>css3动画
+      <div>animation</div>
+    </ul>
+    <ul>css3多列
+      <div>column-count 列数</div>
+      <div>column-gap 间隔</div>
+      <div>column-rule 列之间的宽度、样式和颜色规则</div>
+    </ul>
+    <ul>CSS3 用户界面
+      <div class="resize">resize</div>
+      <div>box-sizing 属性允许您以确切的方式定义适应某个区域的具体内容</div>
+      <div>outline-offset 属性对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓</div>
+    </ul>
+  </div>
+</body>
+</html>

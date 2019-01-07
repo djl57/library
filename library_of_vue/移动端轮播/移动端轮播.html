@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端轮播-vue</title>
+  <link rel="stylesheet" href="./../library_of_js_and_css/css/reset.css">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    .box {
+      overflow: hidden;
+      position: relative;
+    }
+    .box .slide li {
+      float: left;
+    }
+    .dots {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      width: 100%;
+      height: 10px;
+      margin-left: -50%;
+      display: flex;
+      justify-content: center;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border: 1px solid #7d7d7d;
+      border-radius: 50%;
+      margin: 0 2px;
+    }
+    .active {
+      background-color: #7d7d7d;
+    }
+  </style>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="box" ref="box">
+      <ul class="slide" ref="ul" @touchstart.stop='touchStart' @touchend.stop='touchEnd'>
+        <li v-for="(item, index) in imgs" :key="index" ref="li">{{index}}</li>
+      </ul>
+      <ul class="dots">
+        <li v-for="(item, index) in len" class="dot" :class="index === (cur_i-1) ? 'active' : 'noactive'"></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    let Main = {
+      data () {
+        return {
+          imgs: [],
+          len: null,
+          isReady: true,
+          startX: null,
+          cur_i: 1,
+          x: null,
+          liLen: null,
+          liOffsetWidth: null,
+          timer: null
+        }
+      },
+      mounted () {
+        var thst = this;
+        thst.getImgs();
+      },
+      methods: {
+        getImgs () {
+          var that = this;
+          var res = [
+            {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2333090299,850498900&fm=5'},
+            {img: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2247692397,1189743173&fm=5'},
+            {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1667994205,255365672&fm=5'},
+            {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2406161785,701397900&fm=5'},
+            {img: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1917461690,696184102&fm=5'},
+          ];
+          that.len = res.length;
+          that.imgs.push({ img: res[that.len-1].img });
+          res.forEach(function (el) {
+            that.imgs.push({ img: el.img });
+          });
+          that.imgs.push({ img: res[0].img });
+          this.$nextTick(function() {
+            this._setSlide();
+          })
+        },
+        _setSlide () {
+          var that = this;
+          var box = this.$refs.box;
+          var ul = this.$refs.ul;
+          var li = ul.children;
+          that.liLen = li.length;
+          var clientWidth = document.documentElement.clientWidth;
+
+          box.style.width = clientWidth + 'px';
+
+          ul.style.width = clientWidth*that.liLen + 'px';
+          ul.style.height = clientWidth/2 + 'px';
+          ul.style.transform = 'translateX(-' + clientWidth + 'px)';
+
+          for (var i = 0; i < that.liLen; i++) {
+            li[i].style.width = clientWidth + 'px';
+            li[i].style.height = clientWidth/2 + 'px';
+            li[i].style.backgroundImage = 'url(' + that.imgs[i].img +')';
+            li[i].style.backgroundSize = '100% 100%';
+          };
+
+          that.liOffsetWidth = li[0].offsetWidth;
+          that.x = -that.cur_i*that.liOffsetWidth;
+          that._setInterval();
+        },
+        _setInterval () {
+          var that = this;
+          var ul = this.$refs.ul;
+          that.timer = setInterval(function() {
+            that.cur_i++;
+            that.x = -that.cur_i*that.liOffsetWidth;
+            ul.style.transform = 'translateX(' + that.x + 'px)';
+            ul.style.transition = '200ms all ease';
+            ul.addEventListener('transitionend', function() {
+              if (that.cur_i === (that.liLen-1)) {
+                that.cur_i = 1;
+              }
+              if (that.cur_i === 0) {
+                that.cur_i = that.liLen-2;
+              }
+              ul.style.transition = 'none';
+              that.x = -that.cur_i*that.liOffsetWidth;
+              ul.style.transform = 'translateX(' + that.x +'px)';
+            }, false)
+          }, 4000)
+        },
+        touchStart (ev) {
+          var that = this;
+          if (that.isReady === false) { 
+            return;
+          } else {
+            that.startX = ev.targetTouches[0].pageX;
+          }
+          clearInterval(that.timer);
+          ev.preventDefault();
+        },
+        touchEnd (ev) {
+          var that = this;
+          that.endX = ev.changedTouches[0].pageX;
+          if (Math.abs(that.endX - that.startX) > 50) {
+            if (that.endX - that.startX < 0) {
+              that.cur_i++;
+              if (that.cur_i === that.liLen) {
+                that.cur_i = that.liLen - 1;
+              }
+            } else {
+              that.cur_i--;
+              if (that.cur_i === -1) {
+                that.cur_i = 0;
+              }
+            }
+          } else {
+            that.isReady = true;
+          }
+          that.x = -that.cur_i*that.liOffsetWidth;
+          var ul = this.$refs.ul;
+          ul.style.transform = 'translateX('+ that.x +'px)';
+          ul.style.transition = '200ms all ease';
+          ul.addEventListener('transitionend', function() {
+            if (that.cur_i === (that.liLen-1)) {
+              that.cur_i = 1;
+            }
+            if (that.cur_i === 0) {
+              that.cur_i = that.liLen-2;
+            }
+            ul.style.transition = 'none';
+            that.x = -that.cur_i*that.liOffsetWidth;
+            ul.style.transform = 'translateX(' + that.x +'px)';
+            that.isReady = true;
+          }, false);
+          that._setInterval();
+          ev.preventDefault();
+        }
+      }
+    };
+    let Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app')
+  </script>
+</body>
+</html>

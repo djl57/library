@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上拉加载</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .head {
+      height: 50px;
+      background-color: #eee;
+    }
+    .box {
+      height: 300px;
+      overflow: scroll;
+    }
+    .item {
+      height: 30px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .loading {
+      padding: 10px 0;
+      color: #a0a0a0;
+      text-align: center;
+      font-size: 14px;
+    }
+    .span {
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="head"></div>
+    <!-- 本来是绑定在ul上的，这时候如果是从上拉加载更多那个字段开始点击的，加载就不会生效，所以把这个事件绑定在box上 -->
+    <div class="box" ref="box" @touchend.stop='touchEnd'>
+      <ul class="items" ref="ul">
+        <li v-for='item in lists' class="item">{{ item }}</li>
+      </ul>
+      <div class="loading">
+        <img src="./../../../images/loading.gif" v-show="showLoadingImg" width="20" class="span"/>
+        <span class="span">{{ loadText }}</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    let Main = {
+      data () {
+        return {
+          lists: 20,
+          scrollHeight: 0,
+          ulHt: 0,
+          boxHt: 0,
+          isGetMoreData: false,
+          loadText: '上拉加载更多',
+          showLoadingImg: false
+        }
+      },
+      mounted () {
+      },
+      methods: {
+        touchEnd (e) {
+          var that = this;
+          // 关于如何进一步再优化的一些想法：
+          // 1、应该在惯性滚动结束后去获取scrollHeight，而不是在手指放开时获取
+          // 2、加载中字段的出现应该更加自然，当它惯性滚动到底前一点的时候就出现加载中字段，此时惯性滚动继续，自然滑动到加载中
+          // 3、样式的优化
+          that.getScrollHeight();
+        },
+        getScrollHeight () {
+          var that = this;
+          that.boxHt = that.$refs.box.clientHeight;
+          that.ulHt = that.$refs.ul.scrollHeight;
+          that.scrollHeight = that.$refs.box.scrollTop;
+          var htDiff = that.ulHt - that.boxHt - 30;
+          if (that.scrollHeight >= htDiff) {
+            if (!that.isGetMoreData) {
+              that.showLoadingImg = true;
+              that.loadText = '加载中...';
+              that.getData();
+            }
+          } else {
+            that.showLoadingImg = false;
+            if (that.lists > 60) {
+              that.loadText = '暂无更多数据';
+            } else {
+              that.loadText = '上拉加载更多';
+            }
+          }
+        },
+        getData () {
+          var that = this;
+          that.isGetMoreData = true;
+          if (that.lists > 60) {
+            that.showLoadingImg = false;
+            that.loadText = '暂无更多数据';
+          } else {
+            setTimeout(function () {
+              that.lists = that.lists + 20;
+              that.isGetMoreData = false;
+            }, 3000);
+          }
+        },
+      }
+    };
+    let Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app')
+  </script>
+</body>
+</html>

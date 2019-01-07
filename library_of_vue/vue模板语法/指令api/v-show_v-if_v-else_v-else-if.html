@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-show和v-if和v-else和v-else-if一起看</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div v-if="ok">
+      <p>yes</p>
+    </div>
+    <div v-else>no</div>
+    <p>这个yes由div标签包裹</p>
+    <p>如果使用template标签，template标签并没有被渲染</p>
+    <p>HTMLtemplate元素 是一种用于保存客户端内容的机制，该内容在页面加载时不被渲染，但可以在运行时使用JavaScript进行实例化。</p>
+    <template v-if="ok">
+      <h1>Title</h1>
+    </template>
+    <div v-show="!ok">
+      no
+    </div>
+    <p>虽然上面那个div因为v-show而没有显示出来，但是我们可以看到它已经在html中被渲染了</p>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      ok: true
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

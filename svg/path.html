@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<title>svg-path</title>
+<style>
+</style>
+<body>
+  <!-- <path>标签用于制路径。
+  <path>的d属性表示绘制顺序，它的值是一个长字符串，每个字母表示一个绘制动作，后面跟着坐标。
+      M：移动到（moveto）
+      L：画直线到（lineto）
+      Z：闭合路径 
+    M = moveto  “Move to”命令，M，需要两个参数，分别是需要移动到点的x轴和y轴的坐标。
+                在使用M命令移动画笔后，只会移动画笔，但不会在两点之间画线。
+                所以M命令经常出现在路径的开始处，用来指明从何处开始画。
+    L = lineto  需要两个参数，分别是一个点的x轴和y轴坐标，L命令将会在当前位置和新位置（L前面画笔所在的点）之间画一条线段。
+    H = horizontal lineto  绘制平行线
+    V = vertical lineto  绘制垂直线
+    C = curveto 三次贝塞尔曲线
+    S = smooth curveto 简写的贝塞尔曲线命令
+    Q = quadratic Bézier curve 二次贝塞尔曲线
+    T = smooth quadratic Bézier curveto
+    A = elliptical Arc  弧形命令
+    Z = closepath  从当前点画一条直线到路径的起点（闭合）
+
+    注意：以上所有命令均允许小写字母。大写表示绝对定位，小写表示相对定位。 
+  -->
+  <svg width="100px" height="100px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 10 H 90 V 90 H 10 L 10 10"/> 
+    <!-- 起点：（10，10）平行线（10,90）垂直线（90,90）平行线（90,10）与前一点连线（10,10） -->
+    <!-- Points -->
+    <!-- <circle cx="10" cy="10" r="2" fill="red"/>
+    <circle cx="90" cy="90" r="2" fill="red"/>
+    <circle cx="90" cy="10" r="2" fill="red"/>
+    <circle cx="10" cy="90" r="2" fill="red"/> -->
+  </svg>
+  <svg width="100px" height="100px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 10 H 90 V 90 H 10 Z" fill="transparent" stroke="black"/>
+  </svg>
+  <svg width="100px" height="100px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 10 h 80 v 80 h -80 Z" fill="transparent" stroke="black"/>
+    <!-- 相对命令使用的是小写字母，它们的参数不是指定一个明确的坐标，而是表示相对于它前面的点需要移动多少距离 -->
+  </svg>
+  <!--三次贝塞尔曲线-->
+  <svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent"/>
+    <!-- <circle cx="130" cy="110" r="2" fill="red"/>
+    <circle cx="120" cy="140" r="2" fill="red"/>
+    <line x1="130" y1="110" x2="120" y2="140" style="stroke:rgb(255,0,0);stroke-width:2"/>
+    <circle cx="180" cy="140" r="2" fill="red"/>
+    <circle cx="170" cy="110" r="2" fill="red"/>
+    <line x1="180" y1="140" x2="170" y2="110" style="stroke:rgb(255,0,0);stroke-width:2"/> -->
+  </svg>
+  <!--三次贝塞尔曲线简写-->
+  <svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent"/>
+    <!-- <circle cx="10" cy="80" r="2" fill="red"/>
+    <circle cx="40" cy="10" r="2" fill="red"/>
+    <line x1="10" y1="80" x2="40" y2="10" style="stroke:rgb(255,0,0);stroke-width:1"/>
+
+    <circle cx="65" cy="10" r="2" fill="red"/>
+    <circle cx="95" cy="80" r="2" fill="red"/>
+    <line x1="65" y1="10" x2="95" y2="80" style="stroke:rgb(255,0,0);stroke-width:1"/>
+
+    <circle cx="125" cy="150" r="2" fill="blue"/>
+    <circle cx="180" cy="80" r="2" fill="red"/>
+    <circle cx="150" cy="150" r="2" fill="red"/>
+    <line x1="95" y1="80" x2="125" y2="150" style="stroke:blue;stroke-width:1"/>
+    <line x1="180" y1="80" x2="150" y2="150" style="stroke:rgb(255,0,0);stroke-width:1"/> -->
+  </svg>
+  <svg width="320px" height="320px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 315
+            L 110 215
+            A 30 50 0 0 1 162.55 162.45
+            L 172.55 152.45
+            A 30 50 -45 0 1 215.1 109.9
+            L 315 10" stroke="black" fill="green" stroke-width="2" fill-opacity="0.5"/>
+    起点（10,315）画一条线段到（110,215）
+  </svg>
+</body>
+</html>

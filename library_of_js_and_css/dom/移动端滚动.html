@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端滚动-完成第一步：滚动效果</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .box {
+      position: absolute;
+      top: 100px;
+      bottom: 100px;
+      width: 50%;
+      /* left: 20px;
+      right: 200px; */
+      overflow: hidden;
+      border: 1px solid #a0a0a0;
+    }
+    .right {
+      width: 50%;
+      height: 500px;
+      overflow: scroll;
+      border: 1px solid red;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="box">
+      <ul class="ul">
+        <li class="li">1</li>
+        <li class="li">2</li>
+        <li class="li">3</li>
+        <li class="li">4</li>
+        <li class="li">5</li>
+        <li class="li">6</li>
+        <li class="li">7</li>
+        <li class="li">8</li>
+        <li class="li">9</li>
+        <li class="li">10</li>
+        <li class="li">11</li>
+        <li class="li">12</li>
+        <li class="li">13</li>
+        <li class="li">14</li>
+        <li class="li">15</li>
+        <li class="li">16</li>
+        <li class="li">17</li>
+        <li class="li">18</li>
+        <li class="li">19</li>
+        <li class="li">20</li>
+        <li class="li">21</li>
+        <li class="li">22</li>
+        <li class="li">23</li>
+        <li class="li">24</li>
+        <li class="li">25</li>
+        <li class="li">26</li>
+        <li class="li">27</li>
+        <li class="li">28</li>
+        <li class="li">29</li>
+        <li class="li">30</li>
+        <li class="li">31</li>
+        <li class="li">32</li>
+        <li class="li">33</li>
+        <li class="li">34</li>
+        <li class="li">35</li>
+        <li class="li">36</li>
+        <li class="li">37</li>
+        <li class="li">38</li>
+        <li class="li">39</li>
+        <li class="li">40</li>
+        <li class="li">41</li>
+        <li class="li">42</li>
+        <li class="li">43</li>
+        <li class="li">44</li>
+        <li class="li">45</li>
+        <li class="li">46</li>
+        <li class="li">47</li>
+        <li class="li">48</li>
+        <li class="li">49</li>
+        <li class="li">50</li>
+        <li class="li">51</li>
+        <li class="li">52</li>
+        <li class="li">53</li>
+        <li class="li">54</li>
+        <li class="li">55</li>
+        <li class="li">56</li>
+        <li class="li">57</li>
+        <li class="li">58</li>
+        <li class="li">59</li>
+        <li class="li">60</li>
+        <li class="li">61</li>
+        <li class="li">62</li>
+        <li class="li">63</li>
+        <li class="li">64</li>
+        <li class="li">65</li>
+        <li class="li">66</li>
+        <li class="li">67</li>
+        <li class="li">68</li>
+        <li class="li">69</li>
+        <li class="li">70</li>
+        <li class="li">71</li>
+        <li class="li">72</li>
+        <li class="li">73</li>
+        <li class="li">74</li>
+        <li class="li">75</li>
+        <li class="li">76</li>
+        <li class="li">77</li>
+        <li class="li">78</li>
+        <li class="li">79</li>
+        <li class="li">80</li>
+        <li class="li">81</li>
+        <li class="li">82</li>
+        <li class="li">83</li>
+        <li class="li">84</li>
+        <li class="li">85</li>
+        <li class="li">86</li>
+        <li class="li">87</li>
+        <li class="li">88</li>
+        <li class="li">89</li>
+        <li class="li">90</li>
+        <li class="li">91</li>
+        <li class="li">92</li>
+        <li class="li">93</li>
+        <li class="li">94</li>
+        <li class="li">95</li>
+        <li class="li">96</li>
+        <li class="li">97</li>
+        <li class="li">98</li>
+        <li class="li">99</li>
+        <li class="li">100</li>
+        <li class="li">101</li>
+        <li class="li">102</li>
+        <li class="li">103</li>
+        <li class="li">104</li>
+        <li class="li">105</li>
+        <li class="li">106</li>
+        <li class="li">107</li>
+        <li class="li">108</li>
+        <li class="li">109</li>
+        <li class="li">110</li>
+        <li class="li">111</li>
+        <li class="li">112</li>
+        <li class="li">113</li>
+        <li class="li">114</li>
+        <li class="li">115</li>
+        <li class="li">116</li>
+        <li class="li">117</li>
+        <li class="li">118</li>
+        <li class="li">119</li>
+        <li class="li">120</li>
+        <li class="li">121</li>
+        <li class="li">122</li>
+        <li class="li">123</li>
+        <li class="li">124</li>
+        <li class="li">125</li>
+        <li class="li">126</li>
+        <li class="li">127</li>
+        <li class="li">128</li>
+        <li class="li">129</li>
+        <li class="li">130</li>
+        <li class="li">131</li>
+        <li class="li">132</li>
+        <li class="li">133</li>
+        <li class="li">134</li>
+        <li class="li">135</li>
+        <li class="li">136</li>
+        <li class="li">137</li>
+        <li class="li">138</li>
+        <li class="li">139</li>
+        <li class="li">140</li>
+        <li class="li">141</li>
+        <li class="li">142</li>
+        <li class="li">143</li>
+        <li class="li">144</li>
+        <li class="li">145</li>
+        <li class="li">146</li>
+        <li class="li">147</li>
+        <li class="li">148</li>
+        <li class="li">149</li>
+        <li class="li">150</li>
+        <li class="li">151</li>
+        <li class="li">152</li>
+        <li class="li">153</li>
+        <li class="li">154</li>
+        <li class="li">155</li>
+        <li class="li">156</li>
+        <li class="li">157</li>
+        <li class="li">158</li>
+        <li class="li">159</li>
+        <li class="li">160</li>
+        <li class="li">161</li>
+        <li class="li">162</li>
+        <li class="li">163</li>
+        <li class="li">164</li>
+        <li class="li">165</li>
+        <li class="li">166</li>
+        <li class="li">167</li>
+        <li class="li">168</li>
+        <li class="li">169</li>
+        <li class="li">170</li>
+        <li class="li">171</li>
+        <li class="li">172</li>
+        <li class="li">173</li>
+        <li class="li">174</li>
+        <li class="li">175</li>
+        <li class="li">176</li>
+        <li class="li">177</li>
+        <li class="li">178</li>
+        <li class="li">179</li>
+        <li class="li">180</li>
+        <li class="li">181</li>
+        <li class="li">182</li>
+        <li class="li">183</li>
+        <li class="li">184</li>
+        <li class="li">185</li>
+        <li class="li">186</li>
+        <li class="li">187</li>
+        <li class="li">188</li>
+        <li class="li">189</li>
+        <li class="li">190</li>
+        <li class="li">191</li>
+        <li class="li">192</li>
+        <li class="li">193</li>
+        <li class="li">194</li>
+        <li class="li">195</li>
+        <li class="li">196</li>
+        <li class="li">197</li>
+        <li class="li">198</li>
+        <li class="li">199</li>
+        <li class="li">200</li>
+      </ul>
+    </div>
+    <div class="right">
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+        <li>17</li>
+        <li>18</li>
+        <li>19</li>
+        <li>20</li>
+        <li>21</li>
+        <li>22</li>
+        <li>23</li>
+        <li>24</li>
+        <li>25</li>
+        <li>26</li>
+        <li>27</li>
+        <li>28</li>
+        <li>29</li>
+        <li>30</li>
+        <li>31</li>
+        <li>32</li>
+        <li>33</li>
+        <li>34</li>
+        <li>35</li>
+        <li>36</li>
+        <li>37</li>
+        <li>38</li>
+        <li>39</li>
+        <li>40</li>
+        <li>41</li>
+        <li>42</li>
+        <li>43</li>
+        <li>44</li>
+        <li>45</li>
+        <li>46</li>
+        <li>47</li>
+        <li>48</li>
+        <li>49</li>
+        <li>50</li>
+        <li>51</li>
+        <li>52</li>
+        <li>53</li>
+        <li>54</li>
+        <li>55</li>
+        <li>56</li>
+        <li>57</li>
+        <li>58</li>
+        <li>59</li>
+        <li>60</li>
+        <li>61</li>
+        <li>62</li>
+        <li>63</li>
+        <li>64</li>
+        <li>65</li>
+        <li>66</li>
+        <li>67</li>
+        <li>68</li>
+        <li>69</li>
+        <li>70</li>
+        <li>71</li>
+        <li>72</li>
+        <li>73</li>
+        <li>74</li>
+        <li>75</li>
+        <li>76</li>
+        <li>77</li>
+        <li>78</li>
+        <li>79</li>
+        <li>80</li>
+        <li>81</li>
+        <li>82</li>
+        <li>83</li>
+        <li>84</li>
+        <li>85</li>
+        <li>86</li>
+        <li>87</li>
+        <li>88</li>
+        <li>89</li>
+        <li>90</li>
+        <li>91</li>
+        <li>92</li>
+        <li>93</li>
+        <li>94</li>
+        <li>95</li>
+        <li>96</li>
+        <li>97</li>
+        <li>98</li>
+        <li>99</li>
+        <li>100</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // 通过控制transform的translateY(-movepx)的值move来进行滚动
+    // startY  moveY  其中moveY一直在变
+
+    // 通过isFirst判断是否是第一次move
+
+    // 第一次move 通过判断moveY和startY的大小来决定是上移还是下移
+    // moveY > startY : 下移 此时当move===0时不能下移 preY = moveY move=move-(moveY-startY) 如果move<0 move = 0
+    // moveY < startY : 上移 上移的最大高度为ul-box的高度 preY = moveY move=move+ (startY-moveY)
+
+    // 连续move 通过判断这一次moveY和上一次moveY的大小来决定是上移还是下移
+    // moveY > preY : 下移 当move===0时不能下移 preY = moveY move=move-(moveY-preY) 如果move<0 move = 0
+    // moveY < preY : 上移 上移的最大高度为ul-box的高度 preY = moveY move=move+ (preY-moveY)
+
+    var box = document.getElementsByClassName('box')[0];
+    var ul = document.getElementsByClassName('ul')[0];
+    var max = ul.offsetHeight - box.offsetHeight;
+    var startY;
+    var isFirst = true;
+    var move = 0;
+    box.addEventListener('touchstart', function(e) {
+      startY = e.targetTouches[0].pageY;
+      // console.log('手指落下', startY);
+    })
+    box.addEventListener('touchmove', function(e) {
+      moveY = e.changedTouches[0].pageY;
+      // console.log(moveY);
+      if (isFirst) {
+        if (moveY > startY) {
+          if (move !== 0) {
+            move = move-(moveY - startY);
+            if (move < 0) {
+              move = 0;
+            }
+          } 
+        } else {
+          move = move + (startY - moveY);
+          if (move > max) {
+            move = max;
+          }
+        }
+        preY = moveY;
+        isFirst = false;
+      } else {
+        if (moveY > preY) {
+          if (move !== 0) {
+            move = move-(moveY - preY);
+            if (move < 0) {
+              move = 0;
+            }
+          } 
+        } else {
+          move = move + (preY - moveY);
+          if (move > max) {
+            move = max;
+          }
+        }
+        preY = moveY;
+      }
+      ul.style.transform = 'translateY(-'+move+'px)';
+    })
+    box.addEventListener('touchend', function(e) {
+      isFirst = true;
+      e.changedTouches.pageX;
+      e.changedTouches.pageY;
+    })
+  </script>
+</body>
+</html>

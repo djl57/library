@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-html</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <span v-html="html"></span>
+    <span v-html="div"></span>
+    <span>
+      span
+      <div>div</div>
+      虽然语法可以，但是最好不要这么做吧
+    </span>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      html: '<p>这是p标签的内容，v-html的机制是在span标签里面添加一个p标签</p>',
+      div: '<div>这是div标签的内容，最后在span标签中添加div标签</div>'
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue项目初搭建(特别基础)</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./base/base.js"></script>
+  <script src="./local/local.js"></script>
+</head>
+<body>
+  <div id="app">
+    <hello-world></hello-world>
+    <hello-vue></hello-vue>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+
+    },
+    components: {
+      // 对于 components 对象中的每个属性来说，其属性名就是自定义元素的名字，其属性值就是这个组件的选项对象。
+      // 我理解为前者相当于全局中的组件名，后者相当于选项对象
+
+      // 局部注册的组件在其子组件中不可用
+      // 如果你希望 ComponentA 在 ComponentB 中可用，则你需要这样写：
+      // var ComponentA = { /* ... */ }
+      // var ComponentB = {
+      //   components: {
+      //     'component-a': ComponentA
+      //   },
+        // ...
+      // }
+      
+      'hello-vue': helloVue
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

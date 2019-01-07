@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>圆弧</title>
+</head>
+<body>
+  <!-- <svg width="200" height="200" viewBox="0 0 200 200">
+    <line x1="10" y1="10" x2="110" y2="10" fill="none" stroke-width="12" stroke="#666" />
+    <line x1="10" y1="10" x2="110" y2="10" fill="none" stroke-width="12" stroke="#FC4D04" />
+    <circle cx="60" cy="80" r="54" fill="none" stroke="#666" stroke-width="12" />
+    <circle cx="60" cy="80" r="54" fill="none" stroke="#FC4D04" stroke-width="12" />
+  </svg> -->
+  <svg width="200" height="200" viewBox="0 0 200 200">
+    <line x1="10" y1="10" x2="110" y2="10" fill="none" stroke-width="12" stroke="#666" />
+    <line x1="10" y1="10" x2="110" y2="10" fill="none" stroke-width="12" stroke="#FC4D04" stroke-dasharray="90" stroke-dashoffset="90" />
+    <circle cx="60" cy="80" r="54" fill="none" stroke="#666" stroke-width="12" />
+    <circle cx="60" cy="80" r="54" fill="none" stroke="#FC4D04" stroke-width="12" stroke-dasharray="200" stroke-dashoffset="200" />
+  </svg>
+
+  <div class="action">
+    <div class="line">
+      <label for="">line: stroke-dashoffset = <span></span></label>
+      <input type="range" name="points" min="0" max="100" step="1">
+    </div>
+    <div class="circle">
+      <label>circle:stroke-dashoffset = <span></span></label> 
+      <input type="range" name="points" min="0" max="339" step="1">
+    </div>
+  </div>
+
+  <script>
+    var line = document.querySelectorAll('line')[1].getTotalLength();
+    var circle = document.querySelectorAll('circle')[1].getTotalLength();
+    // line = 80;
+    // circle = 200;
+    console.log('line', line);
+    console.log('circle', circle);
+  </script>
+</body>
+</html>

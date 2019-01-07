@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-for</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div v-for="item in items">{{item}}</div>
+    <div v-for="list of lists">{{list}}</div>
+    <div v-for="(todo, index) in todos" :key="todo.id">
+      <p>{{ todo.name }}</p>
+    </div>
+    <p>关于:key的具体用法涉及到虚拟dom的diff算法机制</p>
+    <p>diff算法两个核心：</p>
+    <p>1、两个相同组件产生类似的dom结构</p>
+    <p>1、同一层级的一组节点，它们可以通过唯一的id进行区分</p>
+    <p>基于以上这两点假设，使得虚拟DOM的Diff算法的复杂度从O(n^3)降到了O(n)。</p>
+    <p>key的作用主要是为了高效的更新虚拟DOM</p>
+
+    <p>个人理解：key在v-for中的作用：当v-for中的内容过多，并且会进行内容的添加更改时，key的存在能更快地去渲染dom</p>
+
+    Vue 包含一组观察数组的变异方法，所以它们也将会触发视图更新。这些方法如下：
+    push()
+    pop()
+    shift()
+    unshift()
+    splice()
+    sort()
+    reverse()
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      items: 2,
+      lists: 3,
+      todos: [
+        { id:'01_1', name: '类型01的1号' },
+        { id:'01_2', name: '类型01的2号' },
+        { id:'01_3', name: '类型01的3号' },
+      ]
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

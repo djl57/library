@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js获得屏幕高度</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .wrap {
+      width: 200px;
+      height: 500px;
+      /* padding: 20px; */
+      /* margin: 10px; */
+      /* background-color: bisque; */
+      /* border: 10px solid red; */
+      overflow: scroll;
+    }
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+<body>
+  <ul class="wrap">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+    <li>11</li>
+    <li>12</li>
+    <li>13</li>
+    <li>14</li>
+    <li>15</li>
+    <li>16</li>
+    <li>17</li>
+    <li>18</li>
+    <li>19</li>
+    <li>20</li>
+    <li>21</li>
+    <li>22</li>
+    <li>23</li>
+    <li>24</li>
+    <li>25</li>
+    <li>26</li>
+    <li>27</li>
+    <li>28</li>
+    <li>29</li>
+    <li>30</li>
+    <li>31</li>
+    <li>32</li>
+    <li>33</li>
+    <li>34</li>
+    <li>35</li>
+    <li>36</li>
+    <li>37</li>
+    <li>38</li>
+    <li>39</li>
+    <li>40</li>
+    <li>41</li>
+    <li>42</li>
+    <li>43</li>
+    <li>44</li>
+    <li>45</li>
+    <li>46</li>
+    <li>47</li>
+    <li>48</li>
+    <li>49</li>
+    <li>50</li>
+    <li>51</li>
+    <li>52</li>
+    <li>53</li>
+    <li>54</li>
+    <li>55</li>
+    <li>56</li>
+    <li>57</li>
+    <li>58</li>
+    <li>59</li>
+    <li>60</li>
+    <li>61</li>
+    <li>62</li>
+    <li>63</li>
+    <li>64</li>
+    <li>65</li>
+    <li>66</li>
+    <li>67</li>
+    <li>68</li>
+    <li>69</li>
+    <li>70</li>
+    <li>71</li>
+    <li>72</li>
+    <li>73</li>
+    <li>74</li>
+    <li>75</li>
+    <li>76</li>
+    <li>77</li>
+    <li>78</li>
+    <li>79</li>
+    <li>80</li>
+    <li>81</li>
+    <li>82</li>
+    <li>83</li>
+    <li>84</li>
+    <li>85</li>
+    <li>86</li>
+    <li>87</li>
+    <li>88</li>
+    <li>89</li>
+    <li>90</li>
+    <li>91</li>
+    <li>92</li>
+    <li>93</li>
+    <li>94</li>
+    <li>95</li>
+    <li>96</li>
+    <li>97</li>
+    <li>98</li>
+    <li>99</li>
+    <li>100</li>
+  </ul>
+</body>
+<script>
+  // 667 x 375
+  var clientWidth = document.body.clientWidth;
+  console.log('网页可见区域宽', clientWidth); // 375
+  var clientHeight = document.body.clientHeight;
+  console.log('网页可见区域高', clientHeight) // 500
+  var offsetWidth = document.body.offsetWidth;
+  console.log('网页可见区域包括边线的宽', offsetWidth); // 375
+  var offsetHeight = document.body.offsetHeight;
+  console.log('网页可见区域包括边线的高', offsetHeight); // 500
+  var scrollWidth = document.body.scrollWidth;
+  console.log('网页正文全文宽', scrollWidth); // 375
+  var scrollHeight = document.body.scrollHeight;
+  console.log('网页正文全文高', scrollHeight); // 500
+  var scrollTop = document.body.scrollTop;
+  console.log('网页被卷去的高', scrollTop); // 0
+  var scrollLeft = document.body.scrollLeft;
+  console.log('网页被卷去的左', scrollLeft); // 0
+  var screenTop = window.screenTop;
+  console.log('网页正文部分上', screenTop); // 0
+  var screenLeft = window.screenLeft;
+  console.log('网页正文部分左', screenLeft); // 0
+  var height = window.screen.height;
+  console.log('屏幕分辨率的高', height); // 667
+  var width = window.screen.width;
+  console.log('屏幕分辨率的宽', width); // 375
+  var availHeight = window.screen.availHeight;
+  console.log('屏幕可用工作区高度', availHeight); // 667
+  var availWidth = window.screen.availWidth;
+  console.log('屏幕可用工作区宽度', availWidth); // 375
+
+  // 获取某个元素的高度
+  // 1.document.getElementById("id").style.height,这种方法的前提是必须之前已经显示的在css中声明过height,才能取得正确的值
+  // 2.document.getElementById("id").clientHeight
+  // 3.document.getElementById("id").offsetHeight
+</script>
+</html>

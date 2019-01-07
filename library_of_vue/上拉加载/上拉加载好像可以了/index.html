@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上拉加载</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .head {
+      height: 50px;
+      background-color: #eee;
+    }
+    .box {
+      height: 300px;
+      overflow: scroll;
+    }
+    .item {
+      height: 30px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .loading {
+      padding: 10px 0;
+      color: #a0a0a0;
+      text-align: center;
+    }
+  </style>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="head"></div>
+    <div class="box" ref="box">
+      <ul class="items" ref="ul" @touchend.stop='touchEnd'>
+        <li v-for='item in lists' class="item">{{ item }}</li>
+      </ul>
+      <div class="loading" v-if="showLoad">
+        {{ loadText }}
+      </div>
+    </div>
+  </div>
+  <script>
+    let Main = {
+      data () {
+        return {
+          lists: 20,
+          scrollHeight: 0,
+          ulHt: 0,
+          boxHt: 0,
+          showLoad: false,
+          loadText: '加载中...'
+        }
+      },
+      mounted () {
+      },
+      methods: {
+        touchEnd (e) {
+          var that = this;
+          // 关于如何优化的一些想法：
+          // 1、应该在惯性滚动结束后去获取scrollHeight，而不是在手指放开时获取
+          // 2、加载中字段的出现应该更加自然，当它惯性滚动到底前一点的时候就出现加载中字段，此时惯性滚动继续，自然滑动到加载中
+          // 3、样式的优化
+          that.getScrollHeight();
+        },
+        getScrollHeight () {
+          var that = this;
+          // 获得box高度
+          that.boxHt = that.$refs.box.clientHeight;
+          // 获得文档高度
+          that.ulHt = that.$refs.ul.scrollHeight;
+          // 获得滚动的位置
+          that.scrollHeight = that.$refs.box.scrollTop;
+          // 文档高度-box高度  还多减了30
+          var htDiff = that.ulHt - that.boxHt - 30;
+          // 当滚动的位置 比 htDiff高时去获取更多数据（画个图就知道了）
+          if (that.scrollHeight >= htDiff) {
+            // 当showLoad是true时，说明正在获取数据中，数据获取完成后会重新编程false，如果没有更多数据则一直为true状态，不会再去走获取接口
+            if (!that.showLoad) {
+              that.getData();
+            }
+          }
+        },
+        getData () {
+          var that = this;
+          // 获取前显示加载中...
+          that.showLoad = true;
+          // 这里是没有更多数据的条件判断
+          if (that.lists > 100) {
+            that.loadText = '暂无更多数据';
+          } else {
+            // 模拟获取数据的过程3s中
+            setTimeout(function () {
+              // 获取数据之后不显示加载中...
+              that.showLoad = false;
+              // 更新数据
+              that.lists = that.lists + 20;
+            }, 3000);
+          }
+        },
+      }
+    };
+    let Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端日期选择器</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .view {
+      width: 100%;
+      height: 300px;
+    }
+    .box {
+      padding: 10px 0;
+      height: 280px;
+      display: flex;
+    }
+    .year {
+    }
+    .month {
+    }
+    .day {
+    }
+    .item {
+      flex: 0 0 33.3%;
+      text-align: center;
+      color: #333;
+      font-size: 14px;
+    }
+    .border_bottom {
+      position: relative;
+    }
+    .border_bottom::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-bottom: 1px solid #888;
+      transform: scaleY(0.5);
+      transform-origin: 0 100%;
+    }
+    .top {
+      height: 120px;
+      
+      background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
+    }
+    .top_year {
+      height: 40px;
+      line-height: 40px;
+    }
+    .bottom {
+      height: 120px;
+      line-height: 40px;
+      background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 2));
+    }
+    .middle {
+      position: relative;
+      height: 40px;
+      line-height: 40px;
+    }
+    .middle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border-top: 1px solid #888;
+      transform: scaleY(0.5);
+      transform-origin: 0 100%;
+    }
+    .middle::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-bottom: 1px solid #888;
+      transform: scaleY(0.5);
+      transform-origin: 0 100%;
+    }
+  </style>
+  <!-- 开发环境 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <script src="./../vue-2.5.18-beta.0/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="view border_bottom">
+      <div class="box">
+        <div class="year item">
+          <div class="top">
+            <li v-for="(year, index) in years" :key="year" class="top_year">{{ year }}</li>
+          </div>
+          <div class="middle">{{ curYear }} 年</div>
+          <div class="bottom"></div>
+        </div>
+        <div class="month item">
+          <div class="top"></div>
+          <div class="middle">{{ curMonth }} 月</div>
+          <div class="bottom"></div>
+        </div>
+        <div class="day item">
+          <div class="top"></div>
+          <div class="middle">{{ curDay }} 日</div>
+          <div class="bottom"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      years: [],
+      curYear: '',
+      curMonth: '',
+      curDay: ''
+    },
+    mounted () {
+      var that = this;
+      that.getCurYear()
+    },
+    methods: {
+      getCurYear () {
+        let date = new Date();
+        this.curYear = date.getFullYear();
+        this.curMonth = date.getMonth() + 1;
+        this.curDay = date.getDate();
+        this.getYears()
+      },
+      getYears () {
+        for (let i = 30; i > 0; i --) {
+          this.years.push(this.curYear-i)
+        }
+      }
+    }
+  })
+</script>
+</html>

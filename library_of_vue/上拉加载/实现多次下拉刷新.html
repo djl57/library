@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上拉加载</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .head {
+      height: 50px;
+      background-color: #eee;
+    }
+    .box {
+      height: 300px;
+      overflow: scroll;
+    }
+    .item {
+      height: 30px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .loading {
+      padding: 10px 0;
+      color: #a0a0a0;
+      text-align: center;
+    }
+  </style>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="head"></div>
+    <div class="box" ref="box">
+      <ul class="items" ref="ul" @touchend.stop='touchEnd'>
+        <li v-for='item in lists' class="item">{{ item }}</li>
+      </ul>
+      <div class="loading" v-if="showLoad">
+        加载中...
+      </div>
+    </div>
+  </div>
+  <script>
+    let Main = {
+      data () {
+        return {
+          lists: 20,
+          newDate: 20,
+          startY: 0,
+          endY: 0,
+          scrollHeight: 0,
+          ulHt: 0,
+          boxHt: 0,
+          showLoad: false,
+        }
+      },
+      mounted () {
+      },
+      methods: {
+        touchEnd (e) {
+          var that = this;
+          that.endY = e.changedTouches[0].pageY;
+          that.getScrollHeight();
+        },
+        getScrollHeight () {
+          var that = this;
+          that.boxHt = that.$refs.box.clientHeight;
+          that.ulHt = that.$refs.ul.scrollHeight;
+          that.scrollHeight = that.$refs.box.scrollTop;
+          var htDiff = that.ulHt - that.boxHt - 30;
+          
+          if (that.scrollHeight >= htDiff) {
+            if (!that.showLoad) {
+              that.getData();
+            }
+          }
+        },
+        getData () {
+          var that = this;
+          that.showLoad = true;
+          setTimeout(function () {
+            that.showLoad = false;
+            that.lists = that.lists + 20;
+          }, 3000);
+        },
+      }
+    };
+    let Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app')
+  </script>
+</body>
+</html>

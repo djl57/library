@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端轮播-vue</title>
+  <link rel="stylesheet" href="./../library_of_js_and_css/css/reset.css">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+    .box {
+      width: 980px;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+    .box ul {
+      width: 4900px;
+      height: 300px;
+      position: relative;
+      transform: translateX(-980px);
+    }
+    .box ul li {
+      width: 980px;
+      height: 200px;
+      float: left;
+      /* text-align: center; */
+    }
+  </style>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="box" ref="box">
+      <ul ref="ul">
+        <li v-for="(item, index) in Imgs" :key="index" ref="li">
+          <img :src="item.img" height="100%">
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        Imgs: []
+      },
+      mounted: function () {
+        this.getImgs();
+      },
+      methods: {
+        getImgs: function () {
+          var that = this;
+          var res = [
+            {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1667994205,255365672&fm=5'},
+            {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2406161785,701397900&fm=5'},
+            {img: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1917461690,696184102&fm=5'},
+          ];
+          var len = res.length;
+          that.Imgs.push({ img: res[len-1].img });
+          res.forEach(function (el) {
+            that.Imgs.push({ img: el.img });
+          });
+          that.Imgs.push({ img: res[0].img });
+
+
+          this.$nextTick(() => {
+            console.log(this.$refs.box);
+            console.log(this.$refs.ul.children[0]);
+            var box = this.$refs.box;
+            var oUl = this.$refs.ul;
+            var aLi = oUl.children;
+            var iNow = 1;
+            var x = -iNow*aLi[0].offsetWidth; //offsetWidth = width + border + padding
+            // offsetLeft = left + marginLeft
+            // offsetTop = top +marginTop
+            console.log(x);
+            var bReady = true;
+            
+          })
+        }
+      }
+    });
+  </script>
+</body>
+</html>

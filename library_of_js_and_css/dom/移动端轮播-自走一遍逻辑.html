@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./../css/reset.css">
+  <title>自己敲</title>
+  <style>
+    .box {
+      overflow: hidden;
+    }
+    li {
+      float: left;
+    }
+    li:nth-child(2n) {
+      background-color: #a0a0a0;
+    }
+    li:nth-child(2n+1) {
+      background-color: #eeeeee;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <ul>
+      <li>3</li>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>1</li>
+    </ul>
+  </div>
+  <script>
+    var box = document.getElementsByClassName('box')[0];
+    var ul = document.getElementsByTagName('ul')[0];
+    var clientWidth = document.documentElement.clientWidth;
+    var li = ul.children;
+    var liLen = li.length;
+    var imgs = [
+      // {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2333090299,850498900&fm=5'},
+      // {img: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2247692397,1189743173&fm=5'},
+      {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1667994205,255365672&fm=5'},
+      {img: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2406161785,701397900&fm=5'},
+      {img: 'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1917461690,696184102&fm=5'},
+    ]
+    imgs.unshift(imgs[imgs.length-1]);
+    imgs.push(imgs[1]);
+
+    box.style.width = clientWidth + 'px';
+
+    ul.style.width = clientWidth*liLen + 'px';
+    ul.style.height = clientWidth/2 + 'px';
+    ul.style.transform = 'translateX(-' + clientWidth + 'px)';
+
+    for (var i = 0; i < liLen; i++) {
+      li[i].style.width = clientWidth + 'px';
+      li[i].style.height = clientWidth/2 + 'px';
+      li[i].style.backgroundImage = 'url('+ imgs[i].img +')';
+      li[i].style.backgroundSize = '100% 100%';
+    }
+    var liOffsetWidth = li[0].offsetWidth;
+    var cur_i = 1;
+    var x = -cur_i*liOffsetWidth;
+    var isReady = true;
+
+    ul.addEventListener('touchstart', function (e) {
+      if (isReady === false) { return; }
+      isReady = false;
+
+      var startX = e.targetTouches[0].pageX;
+
+      function end (e) {
+        var endX = e.changedTouches[0].pageX;
+        if (Math.abs(endX - startX) > 50) {
+          if (endX - startX < 0) {
+            cur_i++;
+            if (cur_i === liLen) {
+              cur_i = liLen-1;
+            }
+          } else {
+            cur_i--;
+            if (cur_i === -1) {
+              cur_i = 0;
+            }
+          }
+        } else {
+          isReady = true;
+        }
+        x = -cur_i*liOffsetWidth;
+        ul.style.transform = 'translate3d('+ x +'px, 0, 0)';
+        ul.style.transition = '200ms all ease';
+        function tEnd () {
+          if (cur_i === (liLen-1)) {
+            cur_i = 1;
+          }
+          if (cur_i === 0) {
+            cur_i = liLen-2;
+          }
+          ul.style.transition = 'none';
+          x = -cur_i*liOffsetWidth;
+          ul.style.transform = 'translate3d('+ x +'px, 0, 0)';
+          isReady = true
+        }
+        ul.addEventListener('transitionend', tEnd, false);
+        document.removeEventListener('touchend', end, false);
+      }
+
+      document.addEventListener('touchend', end, false);
+      e.preventDefault();
+    }, false)
+  </script>
+</body>
+</html>

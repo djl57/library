@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>事件捕获</title>
+</head>
+<body>
+  <div>
+    <input type="button" value="测试事件捕获" />
+  </div>
+</body>
+<script>
+  var $input = document.getElementsByTagName("input")[0];
+  var $div = document.getElementsByTagName("div")[0];
+  var $body = document.getElementsByTagName("body")[0];
+
+  // 把true改为false就成事件冒泡了，用e.stopPropagation()阻止事件冒泡
+
+  $input.addEventListener("click", function(e){
+    this.style.border = "5px solid red";
+    alert("red")
+  }, false)
+  $div.addEventListener("click", function(e){
+    this.style.border = "5px solid green";
+    alert("green")
+  }, false)
+  $body.addEventListener("click", function(e){
+    this.style.border = "5px solid yellow";
+    alert("yellow")
+  }, false)
+</script>
+</html>

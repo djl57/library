@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-bind缩写:</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 生产环境 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+</head>
+<body>
+  <div id="app">
+    <span :title="title">
+      pc端鼠标悬停查看绑定信息
+    </span>
+    <span @click="clickSpan">
+      手机端点击查看信息，不用进行绑定
+    </span>
+    <div>
+      查看绑定
+    </div>
+
+    <!-- 绑定一个属性 -->
+    <!-- <img v-bind:src="imageSrc"> -->
+
+    <!-- 缩写 -->
+    <!-- <img :src="imageSrc"> -->
+
+    <!-- 内联字符串拼接 -->
+    <!-- <img :src="'/path/to/images/' + fileName"> -->
+
+    <!-- class 绑定 -->
+    <!-- <div :class="{ red: isRed }"></div>
+    <div :class="[classA, classB]"></div>
+    <div :class="[classA, { classB: isB, classC: isC }]"> -->
+
+    <!-- style 绑定 -->
+    <!-- <div :style="{ fontSize: size + 'px' }"></div>
+    <div :style="[styleObjectA, styleObjectB]"></div> -->
+
+    <!-- 绑定一个有属性的对象 -->
+    <!-- <div v-bind="{ id: someProp, 'other-attr': otherProp }"></div> -->
+
+    <!-- 通过 prop 修饰符绑定 DOM 属性 -->在学习组件时再详细了解
+    <!-- <div v-bind:text-content.prop="text"></div> -->
+
+    <!-- prop 绑定。“prop”必须在 my-component 中声明。-->在学习组件时再详细了解
+    <!-- <my-component :prop="someThing"></my-component> -->
+
+    <!-- 通过 $props 将父组件的 props 一起传给子组件 -->在学习组件时再详细了解
+    <!-- <child-component v-bind="$props"></child-component> -->
+
+    <!-- XLink -->
+    <!-- <svg><a :xlink:special="foo"></a></svg> -->
+
+    <p>.camel 修饰符允许在使用 DOM 模板时将 v-bind 属性名称驼峰化，例如 SVG 的 viewBox 属性：</p>
+    <!-- <svg :view-box.camel="viewBox"></svg> -->
+    <p>.sync (2.3.0+) 语法糖，会扩展成一个更新父组件绑定值的 v-on 侦听器。</p>
+    <p>这个用法在学习组件时会详细说到</p>
+  </div>
+</body>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      title: `页面加载于${new Date().toLocaleString()}`
+    },
+    mounted () {
+
+    },
+    methods: {
+      clickSpan () {
+        console.log('this', this)
+        console.log('vm', vm)
+        // alert(this.title);
+        setTimeout(function() {
+          console.log('setTimeout this', this)
+          console.log('setTimeout vm', vm)
+        }, 1000)
+        var arrowfun = () => {
+          console.log('arrowfun this', this)
+          console.log('arrowfun vm', vm)
+        }
+        arrowfun()
+        var fun = function() {
+          console.log('fun this', this)
+          console.log('fun vm', vm)
+        }
+        fun()
+      }
+    }
+  })
+  console.log(vm)
+  console.log('vm.$data', vm.$data)
+  console.log('vm.$el', vm.$el)
+  console.log('vm.$options', vm.$options)
+  console.log('vm.$options.methods', vm.$options.methods)
+  console.log('vm.$options.methods.clickSpan', vm.$options.methods.clickSpan)
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>svg环形进度条</title>
+  <style>
+    .svg {
+      width: 200px;
+      height: 200px;
+      fill: none;
+    }
+    #circle {
+      stroke-width: 10%;
+      stroke: #6fec6f;
+      stroke-dasharray: 255%;
+      /* stroke-dashoffset: 255%;
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      -o-transform: rotate(-90deg);
+      transform: rotate(-90deg); */
+    }
+  </style>
+</head>
+<body>
+  <svg class="svg">
+    <circle id="circle" cx="50%" cy="50%" r="40%"></circle>
+  </svg>
+</body>
+</html>

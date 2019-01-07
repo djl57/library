@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>轮播图2（能用，后退的时候小点状态不对）</title>
+  <link rel="stylesheet" href="slide.css">
+</head>
+<body>
+  <div class="slide_wrap">
+    <ul class="slide_main" style="left: -600px;">
+      <li class="slide_list">
+        <img src="./images/slide3.png" width="100%">
+      </li>
+      <li class="slide_list">
+        <img src="./images/slide1.jpg" width="100%">
+      </li>
+      <li class="slide_list">
+        <img src="./images/slide2.jpg" width="100%">
+      </li>
+      <li class="slide_list">
+        <img src="./images/slide3.png" width="100%">
+      </li>
+      <li class="slide_list">
+        <img src="./images/slide1.jpg" width="100%">
+      </li>
+    </ul>
+    <div class="slide_spans">
+      <span index="1" class="on slide_span"></span>
+      <span index="2" class="slide_span"></span>
+      <span index="3" class="slide_span"></span>
+      <!-- <span index="4" class="slide_span"></span>
+      <span index="5" class="slide_span"></span> -->
+    </div>
+    <a href="javascript:;" class="arrow prev">&lt;</a>
+    <a href="javascript:;" class="arrow next">&gt;</a>
+  </div>
+  <script src="./slide.js"></script>
+</body>
+</html>

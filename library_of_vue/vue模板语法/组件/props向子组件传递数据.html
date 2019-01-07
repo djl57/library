@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>props向子组件传递数据</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <blog-title title="nihao props"></blog-title>
+    <blog-title :title="title"></blog-title>
+    如果你想要将一个对象的所有属性都作为 prop 传入，你可以使用不带参数的 v-bind (取代 v-bind:prop-name)。
+    例如，对于一个给定的对象 post：
+    post: {
+      id: 1,
+      title: 'My Journey with Vue'
+    }
+    下面的模板：
+    <!-- <blog-post v-bind="post"></blog-post> -->
+    等价于：
+    <!-- <blog-post
+      v-bind:id="post.id"
+      v-bind:title="post.title"
+    ></blog-post> -->
+    <p>
+      有两种常见的试图改变一个 prop 的情形：
+      1、这个 prop 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用。
+        在这种情况下，最好定义一个本地的 data 属性并将这个 prop 用作其初始值：
+      <!-- props: ['initialCounter'],
+      data: function () {
+        return {
+          counter: this.initialCounter
+        }
+      } -->
+      2、这个 prop 以一种原始的值传入且需要进行转换。
+        在这种情况下，最好使用这个 prop 的值来定义一个计算属性：
+      <!-- props: ['size'],
+      computed: {
+        normalizedSize: function () {
+          return this.size.trim().toLowerCase()
+        }
+      } -->
+      并没有提到需要与父组件双向绑定的情况 
+
+      // 多个可能的类型
+      propB: [String, Number],
+      // 必填的字符串
+      propC: {
+        type: String,
+        required: true
+      },
+      // 带有默认值的数字
+      propD: {
+        type: Number,
+        default: 100
+      },
+      // 带有默认值的对象
+      propE: {
+        type: Object,
+        // 对象或数组默认值必须从一个工厂函数获取
+        default: function () {
+          return { message: 'hello' }
+        }
+      },
+      // 自定义验证函数
+      propF: {
+        validator: function (value) {
+          // 这个值必须匹配下列字符串中的一个
+          return ['success', 'warning', 'danger'].indexOf(value) !== -1
+        }
+      }
+
+      prop 会在一个组件实例创建之前进行验证，此时data等实例的属性是不可用的
+
+      type 可以是下列原生构造函数中的一个：
+        String
+        Number
+        Boolean
+        Array
+        Object
+        Date
+        Function
+        Symbol
+
+      额外的，type 还可以是一个自定义的构造函数，并且通过 instanceof 来进行检查确认。例如，给定下列现成的构造函数：
+      function Person (firstName, lastName) {
+        this.firstName = firstName
+        this.lastName = lastName
+      }
+      你可以使用：
+      Vue.component('blog-post', {
+        props: {
+          author: Person
+        }
+      })来验证 author 的值是否是通过 new Person 创建的。
+
+      
+    </p>
+    <base-input
+      v-model="username"
+      class="username-input"
+      placeholder="Enter your username"
+      label='label'
+    ></base-input>
+    这个的用处不是很理解
+  </div>
+</body>
+<script>
+  Vue.component('blog-title', {
+    props: ['title'],
+    template: `<h3>{{ title }}</h3>`
+  })
+
+  Vue.component('base-input', {
+    inheritAttrs: false,
+    props: ['label', 'value'],
+    template: `
+      <label>
+        {{ label }}
+        <input
+          v-bind="$attrs"
+          v-bind:value="value"
+          v-on:input="$emit('input', $event.target.value)"
+        >
+      </label>
+    `
+  })
+
+  new Vue({
+    el: '#app',
+    data: {
+      title: 'yooooooo!',
+      username: 'djlun'
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

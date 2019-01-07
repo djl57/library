@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-text</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <span v-text="msg"></span>
+    <div>
+      <p>当v-text和{{}}绑定值冲突时</p>
+      <p>v-text={{ msg }}</p>
+      <p>双括号绑定值为：{{ text }}</p>
+      当两者冲突时显示的是：<span v-text="msg">{{ text }}</span>
+    </div>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      msg: 'v-test',
+      text: '双括号绑定值'
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

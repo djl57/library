@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>my book</title>
+  <link rel="stylesheet" href="./../../library_of_js_and_css/css/reset.css">
+  <style>
+    .header {
+      height: 50px;
+      line-height: 50px;
+      font-size: 20px;
+      border-bottom: 1px solid #333333;
+      color: #333333;
+      text-align: center;
+    }
+    .header a {
+      color: #333333;
+      font-weight: bold;
+    }
+    .flex {
+      display: flex;
+    }
+    .nav {
+      width: 260px;
+      /* border-right: 1px solid #ddd; */
+    }
+    .border {
+      flex: 0 0 3px;
+      min-height: 600px;
+      cursor: w-resize;
+      border-right: 1px solid #999;
+    }
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+    .title {
+      margin: 20px 0 0 10px;
+      cursor: pointer;
+      color: #333333;
+      line-height: 20px;
+    }
+    .secTitle {
+      margin: 10px 0 0 30px;
+      cursor: pointer;
+      color: #555555;
+      line-height: 20px;
+    }
+    .text {
+      color: #555555;
+      text-indent: 32px;
+      line-height: 1.5;
+    }
+  </style>
+  <!-- 开发环境 -->
+  <script src="./api.js"></script>
+  <script src="./books/javascript.js"></script>
+  <script src="./books/css.js"></script>
+  <script src="./books/html.js"></script>
+  <script src="./books/com.js"></script>
+  <script src="./data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="page">
+      <ul class="books">
+        <li class="book" v-for="(book, index) in books" :key="book.id" v-if="book.id === id">
+          <div class="header">
+            <a href="./index.html">{{ book.name }}</a>
+          </div>
+          <div class="flex">
+            <div class="nav" ref="nav">
+              <!-- 暂时只做到二级导航 -->
+              <div v-for="(title, index) in book.nav" :key="title.id">
+                <h1 class="title" @click="getChildren(title.children, title.id, index)">{{ title.title }}</h1>
+                <div v-if="title.children && title.active">
+                  <div v-for="(secTitle, index) in title.children" @click="getChildren(secTitle.children, secTitle.id, index)">
+                    <h2 class="secTitle">{{ secTitle.title }}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="border" @click="moveBorder"></div>
+            <div class="main">
+              <div v-for="(text, index) in book.main" :key="text.id" v-if="text.navId === mainId">
+                <p class="text" v-for="(cont, index) in text.text">{{ cont }}</p>
+              </div>
+              <div v-if="mainId === 0">
+                <p class="text">学习记录</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      id: null,
+      books: books,
+      mainId: 0
+    },
+    mounted () {
+      this.getBookId()
+    },
+    methods: {
+      getBookId () {
+        let search = window.location.search;
+        this.id = search.split('=')[1];
+      },
+      getChildren (child, id, index) {
+        // 如果children是undefined，就更新正文
+        // 不是就toggle导航
+        if (child === undefined) {
+          this.mainId = id;
+        } else {
+          let nav;
+          books.forEach(el => {
+            if (el.id === this.id) {
+              nav = el.nav
+            }
+          });
+          nav[index].active = !nav[index].active
+        }
+      },
+      moveBorder () {
+        let nav = this.$refs.nav;
+        console.log(nav);
+        // onmousedown onmousemove onmouseup
+        // 这里要对它绑定onmousedown事件，做一个可以左右拖动的效果
+        // 这里把onmousemove onmouseup绑定在document上是为了在快速拖动时防止掉帧
+      }
+    }
+  })
+</script>
+</html>

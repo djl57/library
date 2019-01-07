@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>批量导入助手</title>
+    #parse("sys/header.html")
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/handsontable/3.0.0/handsontable.full.min.css">
+</head>
+<body>
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.4.6/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/handsontable/3.0.0/handsontable.full.min.js"></script>
+<div id="app">
+
+    <el-tabs v-model="procedureName" @tab-click="handleClick">
+
+        <el-tab-pane label="教师信息导入" name="procedure1">教师信息导入
+            <el-row>
+                <el-col :offset="2">
+                    <p class="text-font red-text">温馨提示：建议只在本表进行批量增加工作，修改和删除可能会导致其他连锁问题，请谨慎操作！</p>
+                    <div id="teacherInfoTable"></div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-button type="success" @click="readTeacherInfo">读 取</el-button>
+                <el-button type="primary" @click="setTeacherInfo">保 存</el-button>
+                <el-button type="warning" @click="resetTeacherInfo">重 置</el-button>
+            </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="班级信息导入" name="procedure2">班级信息导入
+            <el-row>
+                <el-col :offset="2">
+                    <p class="text-font red-text">温馨提示：建议只在本表进行批量增加工作，修改和删除可能会导致其他连锁问题，请谨慎操作！</p>
+                    <div id="classInfoTable"></div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-button type="success" @click="readClassInfo">读 取</el-button>
+                <el-button type="primary" @click="setClassInfo">保 存</el-button>
+                <el-button type="warning" @click="resetClassInfo">重 置</el-button>
+            </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="排课信息导入" name="procedure3">排课信息导入
+
+            <el-row>
+                <el-select v-model="courseCampusId" @change="onCourseCampusChanged"
+                           placeholder="请选择校区">
+                    <el-option
+                            v-for="campus in courseCampusOptions"
+                            :key="campus.id"
+                            :label="campus.name"
+                            :value="campus.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="courseGradeId" @change="onCourseGradeChanged"
+                           placeholder="请选择年级">
+                    <el-option
+                            v-for="grade in courseGradeOptions"
+                            :key="grade.id"
+                            :label="grade.name"
+                            :value="grade.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="courseClassId" @change="onCourseClassChanged()"
+                           placeholder="请选择班级">
+                    <el-option
+                            v-for="clazz in courseClassOptions"
+                            :key="clazz.id"
+                            :label="clazz.name"
+                            :value="clazz.id">
+                    </el-option>
+                </el-select>
+            </el-row>
+            <el-row>
+                <el-col :offset="2">
+                    <div id="classCourseInfoTable"></div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-button type="success" @click="readClassCourseInfo">读 取</el-button>
+                <el-button type="primary" @click="setClassCourseInfo">保 存</el-button>
+                <el-button type="warning" @click="resetClassCourseInfo">重 置</el-button>
+            </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="学生信息导入" name="procedure4">学生信息导入
+            <el-row>
+                <el-select v-model="studentCampusId" @change="onStudentCampusChanged"
+                           placeholder="请选择校区">
+                    <el-option
+                            v-for="campus in studentCampusOptions"
+                            :key="campus.id"
+                            :label="campus.name"
+                            :value="campus.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="studentGradeId" @change="onStudentGradeChanged"
+                           placeholder="请选择年级">
+                    <el-option
+                            v-for="grade in studentGradeOptions"
+                            :key="grade.id"
+                            :label="grade.name"
+                            :value="grade.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="studentClassId" @change="onStudentClassChanged"
+                           placeholder="请选择班级">
+                    <el-option
+                            v-for="clazz in studentClassOptions"
+                            :key="clazz.id"
+                            :label="clazz.name"
+                            :value="clazz.id">
+                    </el-option>
+                </el-select>
+            </el-row>
+            <el-row>
+                <el-col :offset="2">
+                    <p class="text-font red-text">温馨提示：建议只在本表进行批量增加工作，修改和删除可能会导致其他连锁问题，请谨慎操作！</p>
+                    <div id="studentInfoTable"></div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-button type="success" @click="readStudentInfo">读 取</el-button>
+                <el-button type="primary" @click="setStudentInfo">保 存</el-button>
+                <el-button type="warning" @click="resetStudentInfo">重 置</el-button>
+            </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="学生卡信息导入" name="procedure5">学生卡信息导入
+            <el-row>
+                <el-select v-model="studentCardCampusId" @change="onStudentCardCampusChanged"
+                           placeholder="请选择校区">
+                    <el-option
+                            v-for="campus in studentCardCampusOptions"
+                            :key="campus.id"
+                            :label="campus.name"
+                            :value="campus.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="studentCardGradeId" @change="onStudentCardGradeChanged"
+                           placeholder="请选择年级">
+                    <el-option
+                            v-for="grade in studentCardGradeOptions"
+                            :key="grade.id"
+                            :label="grade.name"
+                            :value="grade.id">
+                    </el-option>
+                </el-select>
+
+                <el-select v-model="studentCardClassId" @change="onStudentCardClassChanged"
+                           placeholder="请选择班级">
+                    <el-option
+                            v-for="clazz in studentCardClassOptions"
+                            :key="clazz.id"
+                            :label="clazz.name"
+                            :value="clazz.id">
+                    </el-option>
+                </el-select>
+            </el-row>
+            <el-row>
+                <el-col :offset="2">
+                    <p class="text-font red-text">温馨提示：建议只在本表进行批量增加工作，修改和删除可能会导致其他连锁问题，请谨慎操作！</p>
+                    <div id="studentCardInfoTable"></div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-button type="success" @click="readStudentCardInfo">读 取</el-button>
+                <el-button type="primary" @click="setStudentCardInfo">保 存</el-button>
+                <el-button type="warning" @click="resetStudentCardInfo">重 置</el-button>
+            </el-row>
+        </el-tab-pane>
+
+    </el-tabs>
+
+</div>
+</body>
+<script>
+    let Main = {
+        data() {
+            return {
+                procedureName: 'procedure1',
+
+                teacherInfoData: [["", "", "", ""]],
+                teacherInfoHot: null,
+
+                classInfoData: [["", "", "", ""]],
+                classInfoHot: null,
+
+                courseClassId: '',
+                courseCampusId: '',
+                courseGradeId: '',
+                courseCampusOptions: [],
+                courseGradeOptions: [],
+                courseClassOptions: [],
+                dayIndexHeaders: [],
+                classCourseInfoData: [["", "", "", ""]],
+                classCourseInfoHot: null,
+                classCourseRowHeader:[],
+
+                studentCampusId: '',
+                studentGradeId: '',
+                studentClassId: '',
+                studentCampusOptions: [],
+                studentGradeOptions: [],
+                studentClassOptions: [],
+                studentInfoData: [["", "", "", ""]],
+                studentInfoHot: null,
+
+                studentCardCampusId: '',
+                studentCardGradeId: '',
+                studentCardClassId: '',
+                studentCardCampusOptions: [],
+                studentCardGradeOptions: [],
+                studentCardClassOptions: [],
+                studentCardData: [["", "", "", ""]],
+                studentCardHot: null,
+            };
+        },
+
+        mounted: function () {
+            // `this` 指向 vm 实例
+            let that = this;
+
+            // 获取select选项
+            that.getCampusOptions();
+        },
+
+        methods: {
+
+            handleClick() {
+                let that = this;
+                switch (that.procedureName) {
+                    case 'procedure1':
+                        break;
+                    case 'procedure2':
+                        break;
+                    case 'procedure3':
+                        break;
+                    case 'procedure4':
+                        break;
+                    case 'procedure5':
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            getCampusOptions() {
+                let that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/campus/listAllName",
+                    contentType: "application/json",
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.courseCampusOptions = r.list;
+                            that.studentCampusOptions = r.list;
+                            that.studentCardCampusOptions = r.list;
+                        }
+                    }
+                });
+            },
+
+            /**
+             * 教师导入
+             */
+            readTeacherInfo() {
+                this.loadTeacherInfo()
+            },
+            setTeacherInfo() {
+                this.saveTeacherInfo()
+            },
+            resetTeacherInfo() {
+                this.loadTeacherInfo()
+            },
+            loadTeacherInfo() {
+                let that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/user/listAll",
+                    contentType: "application/json",
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.teacherInfoData = r.list;
+                            that.initTeacherInfoTable();
+                        }
+                    }
+                });
+            },
+            saveTeacherInfo() {
+                let that = this;
+                let data = that.teacherInfoHot.getData();
+                let teacherInfo = {};
+                teacherInfo.teacherList = data;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/user/importAll",
+                    contentType: "application/json",
+                    data: JSON.stringify(teacherInfo),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.$message({
+                                type: 'success',
+                                message: '保存成功!'
+                            });
+                        } else {
+                            alert(r.msg);
+                        }
+                    }
+                });
+            },
+            initTeacherInfoTable() {
+                let that = this;
+                let container = document.getElementById('teacherInfoTable');
+                that.teacherInfoHot = new Handsontable(container,
+                    {
+                        data: that.teacherInfoData,
+                        columns: [
+                            {type: 'text', readOnly: true, className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"}
+                        ],
+                        width: 600,
+                        height: 600,
+                        colWidths: 150,
+                        rowHeights: 25,
+                        minSpareRows: 1,
+                        rowHeaders: true,
+                        colHeaders: ["id", "用户名", "教师姓名", "手机号"],
+                        filters: true,
+                        dropdownMenu: true,
+                        fillHandle: false
+                    });
+            },
+
+
+            /**
+             * 班级信息导入
+             */
+            readClassInfo() {
+                this.loadClassInfo()
+            },
+            setClassInfo() {
+                this.saveClassInfo()
+            },
+            resetClassInfo() {
+                this.loadClassInfo()
+            },
+            loadClassInfo() {
+                let that = this;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/class/listAll",
+                    contentType: "application/json",
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.classInfoData = r.list;
+                            that.initClassInfoTable();
+                        }
+                    }
+                });
+            },
+            saveClassInfo() {
+                let that = this;
+                let data = that.classInfoHot.getData();
+                let classInfo = {};
+                classInfo.classList = data;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/class/importAll",
+                    contentType: "application/json",
+                    data: JSON.stringify(classInfo),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.$message({
+                                type: 'success',
+                                message: '保存成功!'
+                            });
+                        } else {
+                            alert(r.msg);
+                        }
+                    }
+                });
+            },
+            initClassInfoTable() {
+                let that = this;
+                let container = document.getElementById('classInfoTable');
+                that.classInfoHot = new Handsontable(container,
+                    {
+                        data: that.classInfoData,
+                        columns: [
+                            {type: 'text', readOnly: true, className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                        ],
+                        width: 600,
+                        height: 600,
+                        colWidths: 100,
+                        rowHeights: 25,
+                        minSpareRows: 1,
+                        rowHeaders: true,
+                        colHeaders: ["id", "班级名称", "年级名称", "校区名称", "班主任姓名"],
+                        filters: true,
+                        dropdownMenu: true,
+                        fillHandle: false
+                    });
+            },
+
+            /**
+             * 排课信息导入
+             */
+            readClassCourseInfo() {
+                let that = this;
+                if (that.courseClassId === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择班级'
+                    });
+                } else {
+                    that.loadClassCourseInfo()
+                }
+            },
+            setClassCourseInfo() {
+                this.saveClassCourseInfo()
+            },
+            resetClassCourseInfo() {
+                this.loadClassCourseInfo()
+            },
+            loadClassCourseInfo() {
+                let that = this;
+                let classCourse = {};
+                classCourse.classId = that.courseClassId;
+
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/course/listByClassId",
+                    data: JSON.stringify(classCourse),
+                    contentType: "application/json",
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.classCourseInfoData = r.list;
+                            that.classCourseRowHeader = r.rowHeadList;
+                            that.initClassCourseInfoTable();
+                        }
+                    }
+                });
+            },
+            saveClassCourseInfo() {
+                let that = this;
+                let classCourseInfo = {};
+                classCourseInfo.classCourseList = that.classCourseInfoHot.getData();
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/course/importAll",
+                    contentType: "application/json",
+                    data: JSON.stringify(classCourseInfo),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.$message({
+                                type: 'success',
+                                message: '保存成功!'
+                            });
+                        } else {
+                            alert(r.msg);
+                        }
+                    }
+                });
+            },
+            initClassCourseInfoTable() {
+                let that = this;
+                let container = document.getElementById('classCourseInfoTable');
+                that.classCourseInfoHot = new Handsontable(container,
+                    {
+                        data: that.classCourseInfoData,
+                        columns: [
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"}
+                        ],
+                        width: 600,
+                        height: 600,
+                        colWidths: 150,
+                        rowHeights: 25,
+                        minSpareRows: 0,
+                        rowHeaders: that.classCourseRowHeader,
+                        colHeaders: ["周一", "周二", "周三", "周四","周五","周六","周日"],
+                        filters: true,
+                        dropdownMenu: true,
+                        fillHandle: false
+                    });
+            },
+
+            onCourseCampusChanged() {
+                let that = this;
+                that.getCourseGradeOptions();
+            },
+            onCourseGradeChanged() {
+                let that = this;
+                that.getCourseClassOptions();
+            },
+            onCourseClassChanged() {
+
+            },
+
+            getCourseGradeOptions() {
+                let that = this;
+                let request = {};
+                request.campusId = that.courseCampusId;
+                console.log(request);
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/grade/listByCampus",
+                    contentType: "application/json",
+                    data: JSON.stringify(request),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.courseGradeOptions = r.list;
+                        }
+                    }
+                });
+            },
+
+            getCourseClassOptions() {
+                let that = this;
+                let request = {};
+                request.gradeId = that.courseGradeId;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/class/listByGrade",
+                    contentType: "application/json",
+                    data: JSON.stringify(request),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.courseClassOptions = r.list;
+                        }
+                    }
+                });
+
+            },
+
+            /**
+             * 学生信息导入
+             */
+            onStudentCampusChanged() {
+                let that = this;
+                that.getStudentGradeOptions();
+            },
+            onStudentGradeChanged() {
+                let that = this;
+                that.getStudentClassOptions();
+            },
+            onStudentClassChanged() {
+
+            },
+
+            getStudentGradeOptions() {
+                let that = this;
+                let request = {};
+                request.campusId = that.studentCampusId;
+                console.log(request);
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/grade/listByCampus",
+                    contentType: "application/json",
+                    data: JSON.stringify(request),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.studentGradeOptions = r.list;
+                        }
+                    }
+                });
+            },
+            getStudentClassOptions() {
+                let that = this;
+                let request = {};
+                request.gradeId = that.studentGradeId;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/class/listByGrade",
+                    contentType: "application/json",
+                    data: JSON.stringify(request),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.studentClassOptions = r.list;
+                        }
+                    }
+                });
+            },
+
+            readStudentInfo() {
+                let that = this;
+                if (that.studentClassId === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择班级'
+                    });
+                } else {
+                    that.loadStudentInfo()
+                }
+            },
+            setStudentInfo() {
+                this.saveStudentInfo()
+            },
+            resetStudentInfo() {
+                this.loadStudentInfo()
+            },
+            loadStudentInfo() {
+                let that = this;
+                let studentClass = {};
+                studentClass.classId = that.studentClassId;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/student/listByClassId",
+                    data: JSON.stringify(studentClass),
+                    contentType: "application/json",
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.studentInfoData = r.list;
+                            that.initStudentInfoTable();
+                        }
+                    }
+                });
+            },
+            saveStudentInfo() {
+                let that = this;
+                let studentInfo = {};
+                studentInfo.classId = that.studentClassId;
+                studentInfo.studentList = that.studentInfoHot.getData();
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/student/importAll",
+                    contentType: "application/json",
+                    data: JSON.stringify(studentInfo),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.$message({
+                                type: 'success',
+                                message: '保存成功!'
+                            });
+                        } else {
+                            alert(r.msg);
+                        }
+                    }
+                });
+            },
+            initStudentInfoTable() {
+                let that = this;
+                let container = document.getElementById('studentInfoTable');
+                that.studentInfoHot = new Handsontable(container,
+                    {
+                        data: that.studentInfoData,
+                        columns: [
+                            {type: 'text', readOnly: true, className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"}
+                        ],
+                        width: 600,
+                        height: 600,
+                        colWidths: 100,
+                        rowHeights: 25,
+                        minSpareRows: 1,
+                        rowHeaders: true,
+                        colHeaders: ["id", "学生姓名", "学生编号", "手机号1", "手机号2"],
+                        filters: true,
+                        dropdownMenu: true,
+                        fillHandle: false
+                    });
+            },
+
+            /**
+             * 学生卡信息导入
+             */
+            onStudentCardCampusChanged() {
+                let that = this;
+                that.getStudentCardGradeOptions();
+            },
+            onStudentCardGradeChanged() {
+                let that = this;
+                that.getStudentCardClassOptions();
+            },
+            onStudentCardClassChanged() {
+
+            },
+
+            getStudentCardGradeOptions() {
+                let that = this;
+                let request = {};
+                request.campusId = that.studentCardCampusId;
+                console.log(request);
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/grade/listByCampus",
+                    contentType: "application/json",
+                    data: JSON.stringify(request),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.studentCardGradeOptions = r.list;
+                        }
+                    }
+                });
+            },
+            getStudentCardClassOptions() {
+                let that = this;
+                let request = {};
+                request.gradeId = that.studentCardGradeId;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/class/listByGrade",
+                    contentType: "application/json",
+                    data: JSON.stringify(request),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.studentCardClassOptions = r.list;
+                        }
+                    }
+                });
+            },
+
+            readStudentCardInfo() {
+                let that = this;
+                if (that.studentCardClassId === '') {
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择班级'
+                    });
+                } else {
+                    that.loadStudentCardInfo()
+                }
+            },
+            setStudentCardInfo() {
+                this.saveStudentCardInfo()
+            },
+            resetStudentCardInfo() {
+                this.loadStudentCardInfo()
+            },
+            loadStudentCardInfo() {
+                let that = this;
+                let studentCardClass = {};
+                studentCardClass.classId = that.studentCardClassId;
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/studentCard/listByClassId",
+                    data: JSON.stringify(studentCardClass),
+                    contentType: "application/json",
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.studentCardData = r.list;
+                            that.initStudentCardInfoTable();
+                        }
+                    }
+                });
+            },
+            saveStudentCardInfo() {
+                let that = this;
+                let cardInfo = {};
+                cardInfo.classId = that.studentCardClassId;
+                cardInfo.cardList = that.studentCardHot.getData();
+                $.ajax({
+                    type: "POST",
+                    url: "../batchImport/card/importAll",
+                    contentType: "application/json",
+                    data: JSON.stringify(cardInfo),
+                    success: function (r) {
+                        if (r.code === 0) {
+                            that.$message({
+                                type: 'success',
+                                message: '保存成功!'
+                            });
+                        } else {
+                            alert(r.msg);
+                        }
+                    }
+                });
+            },
+            initStudentCardInfoTable() {
+                let that = this;
+                let container = document.getElementById('studentCardInfoTable');
+                that.studentCardHot = new Handsontable(container,
+                    {
+                        data: that.studentCardData,
+                        columns: [
+                            {type: 'text', readOnly: true, className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"},
+                            {type: 'text', className: "htCenter htMiddle"}
+                        ],
+                        width: 600,
+                        height: 600,
+                        colWidths: 150,
+                        rowHeights: 25,
+                        minSpareRows: 1,
+                        rowHeaders: true,
+                        colHeaders: ["id", "学生姓名", "卡内编号", "卡面编号"],
+                        filters: true,
+                        dropdownMenu: true,
+                        fillHandle: false
+                    });
+            },
+        }
+    };
+    let Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app')
+
+</script>
+
+<style>
+    .row-bg {
+        padding: 10px 0;
+    }
+
+    p.text-font {
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+
+    p.red-text {
+        color: firebrick;
+    }
+</style>
+</html>

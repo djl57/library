@@ -1,0 +1,63 @@
+.red1 { background-color: #ff0000; }
+.red2 { background-color: #eb4310; }
+.red3 { background-color: #E64340; }
+.orange1 { background-color: #f6941d; }
+.orange2 { background-color: #fbb417; }
+.orange3 { background-color: #f39801; }
+.yellow1 { background-color: #ffff00; }
+.yellow2 { background-color: #cdd541; }
+.yellow_green1 { background-color: #99cc33; }
+.yellow_green2 { background-color: #3f9337; }
+.green1 { background-color: #219167; }
+.green2 { background-color: #239676; }
+.green3 { background-color: #8fc320; }
+.blue_green1 { background-color: #24998d; }
+.blue_green2 { background-color: #1f9baa; }
+.blue1 { background-color: #0080ff; }
+.blue2 { background-color: #3366cc; }
+.blue3 { background-color: #00b8ee; }
+.blue4 { background-color: #5696ba; }
+.blue4 { background-color: #337ab7; }
+.deep_blue1 { background-color: #333399; }
+.deep_blue2 { background-color: #003366; }
+.deep_blue3 { background-color: #23527c; }
+.purple1 { background-color: #800080; }
+.purple2 { background-color: #a1488e; }
+.purple_red1 { background-color: #a1488e; }
+.purple_red2 { background-color: #bd2158; }
+.title_color { color: #7d7d7d; }
+.font_color { color: #313131; }
+.text { color: #515151; }
+.buttonBg { background-color: #393939; }
+.bg_color526 { background-color: rgba(126,206,244,.2); }
+.bg_color2 { background-color: rgba(242,156,159,.15); }
+.bg_color3 { background-color: rgba(128,194,105,.15); }
+.bg_color4 { background-color: rgba(143,130,188,.15); }
+.pass { color: #89c997; }
+.warn { color: #f39801; }
+.error { color: #f15c5c; }
+.pass2 { color: #80c269; }
+.warn2 { color: #eb6100; }
+.error2 { color: #e60012; }
+
+.color441 { color: #474747; }  .color442 { color: #473C8B; }  .color443 { color: #4682B4; }  .color444 { color: #458B74; }
+.color445 { color: #458B00; }  .color446 { color: #454545; }  .color447 { color: #43CD80; }  .color448 { color: #436EEE; }
+.color449 { color: #424242; }  .color450 { color: #4169E1; }  .color451 { color: #40E0D0; }  .color452 { color: #404040; }
+.color453 { color: #3D3D3D; }  .color454 { color: #3CB371; }  .color455 { color: #3B3B3B; }  .color456 { color: #3A5FCD; }
+.color457 { color: #388E8E; }  .color458 { color: #383838; }  .color459 { color: #36648B; }  .color460 { color: #363636; }
+.color461 { color: #333333; }  .color462 { color: #32CD32; }  .color463 { color: #303030; }  .color464 { color: #2F4F4F; }
+.color465 { color: #2E8B57; }  .color466 { color: #2E2E2E; }  .color467 { color: #2B2B2B; }  .color468 { color: #292929; }
+.color469 { color: #282828; }  .color470 { color: #27408B; }  .color471 { color: #262626; }  .color472 { color: #242424; }
+.color473 { color: #228B22; }  .color474 { color: #218868; }  .color475 { color: #212121; }  .color476 { color: #20B2AA; }
+.color477 { color: #1F1F1F; }  .color478 { color: #1E90FF; }  .color479 { color: #1E1E1E; }  .color480 { color: #1C86EE; }
+.color481 { color: #1C1C1C; }  .color482 { color: #1A1A1A; }  .color483 { color: #191970; }  .color484 { color: #1874CD; }
+.color485 { color: #171717; }  .color486 { color: #141414; }  .color487 { color: #121212; }  .color488 { color: #104E8B; }
+.color489 { color: #0F0F0F; }  .color490 { color: #0D0D0D; }  .color491 { color: #0A0A0A; }  .color492 { color: #080808; }
+.color493 { color: #050505; }  .color494 { color: #030303; }  .color495 { color: #00FFFF; }  .color496 { color: #00FF7F; }
+.color497 { color: #00FF00; }  .color498 { color: #00FA9A; }  .color499 { color: #00F5FF; }  .color500 { color: #00EEEE; } 
+.color501 { color: #00EE76; }  .color502 { color: #00EE00; }  .color503 { color: #00E5EE; }  .color504 { color: #00CED1; }
+.color505 { color: #00CDCD; }  .color506 { color: #00CD66; }  .color507 { color: #00CD00; }  .color508 { color: #00C5CD; }
+.color509 { color: #00BFFF; }  .color510 { color: #00B2EE; }  .color511 { color: #009ACD; }  .color512 { color: #008B8B; }
+.color513 { color: #008B45; }  .color514 { color: #008B00; }  .color515 { color: #00868B; }  .color516 { color: #00688B; }
+.color518 { color: #006400; }  .color519 { color: #0000FF; }  .color520 { color: #0000EE; }  .color521 { color: #0000CD; }
+.color522 { color: #0000AA; }  .color523 { color: #00008B; }  .color524 { color: #000080; }  .color525 { color: #000000; }

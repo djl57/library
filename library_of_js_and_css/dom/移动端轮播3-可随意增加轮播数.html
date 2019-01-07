@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./../css/reset.css">
+  <title>可随意增加轮播数</title>
+  <style>
+    .box {
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+    .box ul {
+      position: relative;
+      transform: translateX(-980px);
+    }
+    .box ul li {
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <ul>
+      <li style="background:blue">5</li>
+      <li style="background:orange">1</li>
+      <li style="background:yellow">2</li>
+      <li style="background:green">3</li>
+      <li style="background:purple">4</li>
+      <li style="background:blue">5</li>
+      <li style="background:orange">1</li>
+    </ul>
+  </div>
+  <script>
+    var box = document.getElementsByClassName('box')[0];
+    var oUl = document.getElementsByTagName('ul')[0];
+    var aLi = oUl.children;
+    var aLiLen = aLi.length;
+    var client = {
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight
+    }
+    box.style.width = client.width + 'px';
+    oUl.style.width = client.width*aLiLen + 'px';
+    oUl.style.height = client.width/2 + 'px';
+    oUl.style.transform = 'translateX(-' + client.width + 'px)';
+
+    for (var i = 0; i < aLiLen; i++) {
+      console.log(aLi[i])
+      aLi[i].style.width = client.width + 'px';
+      aLi[i].style.height = client.width/2 + 'px';
+    }
+
+    var iNow = 1;
+    var x = -iNow*aLi[0].offsetWidth;
+    console.log('offsetWidth', aLi[0].offsetWidth)
+    var bReady = true;
+
+    oUl.addEventListener('touchstart', function(ev) {
+      if (bReady === false) { return; }
+      bReady = false;
+
+      var downX = ev.targetTouches[0].pageX;
+      console.log('触摸到的位置', downX)
+      // var disX = downX - x;
+
+      // function fnMove(ev) {
+      //   x = downX - disX;
+      //   oUl.style.transform = 'translate3d('+x+'px,0,0)';
+      // }
+
+      function fnEnd(ev) {
+        var upX = ev.changedTouches[0].pageX;
+        console.log('upx',upX)
+        if (Math.abs(upX - downX) > 50) {
+          if (upX - downX < 0) {
+            iNow++;
+            if (iNow === aLiLen) {
+              iNow = aLiLen-1;
+            }
+          } else {
+            iNow--;
+            if (iNow === -1) {
+              iNow = 0;
+            }
+          }
+        } else {
+          bReady = true;
+        }
+        x = -iNow*aLi[0].offsetWidth;//offsetWidth: 对象可见的宽度
+        oUl.style.transform = 'translate3d('+ x +'px, 0, 0)';
+        oUl.style.transition = '200ms all ease';
+        function tEnd () {
+          if (iNow === (aLiLen-1)) {
+            iNow = 1;
+          }
+          if (iNow === 0) {
+            iNow = aLiLen-2;
+          }
+          oUl.style.transition = 'none';
+          x = -iNow*aLi[0].offsetWidth;
+          oUl.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+          bReady = true;
+        }
+        oUl.addEventListener('transitionend', tEnd, false);
+        // 释放内存
+        document.removeEventListener('touchend', fnEnd, false);
+        // document.removeEventListener('touchmove', fnMove, false);
+      }
+      // document.addEventListener('touchmove', fnMove, false);
+      document.addEventListener('touchend', fnEnd, false);
+      // 阻止默认事件
+      ev.preventDefault();
+    }, false);
+  </script>
+</body>
+</html>

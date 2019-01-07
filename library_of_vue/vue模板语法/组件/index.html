@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>一个简单的组件实例</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <btn-count-add></btn-count-add>
+  </div>
+</body>
+<script>
+  // 注册组件，传入一个扩展过的构造器
+  // Vue.component('my-component', Vue.extend({ /* ... */ }))
+
+  // 注册组件，传入一个选项对象 (自动调用 Vue.extend)
+  // Vue.component('my-component', { /* ... */ })
+
+  // 获取注册的组件 (始终返回构造器)
+  // var MyComponent = Vue.component('my-component')
+
+  Vue.component('btn-count-add', {
+    // 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：
+    data() {
+      return {
+        count: 0
+      }
+    },
+    template: `<button @click="count++">
+                点击了{{ count }}次
+              </button>`
+  })
+  console.log(Vue.component('btn-count-add'))
+
+  new Vue({
+    el: '#app',
+    data: {
+
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

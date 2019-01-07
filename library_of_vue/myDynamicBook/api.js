@@ -1,0 +1,1 @@
+var host = 'http://127.0.0.1:5500/library_of_vue/myDynamicBook/';

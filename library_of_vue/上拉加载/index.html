@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上拉加载</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .head {
+      height: 50px;
+      background-color: #eee;
+    }
+    .box {
+      height: 300px;
+      overflow: scroll;
+    }
+  </style>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="head"></div>
+    <div class="box" ref="box">
+      <ul class="items" ref="ul" @touchstart.stop='touchStart' @touchmove.stop='touchMove' @touchend.stop='touchEnd'>
+        <li v-for='item in lists' class="item">{{ item }}</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    // box高度 滚动区域
+    // ul高度 文档区域
+    // this.$el.scrollTop 滚动高度
+    let Main = {
+      data () {
+        return {
+          lists: 20,
+          newDate: 20,
+          startY: 0,
+          endY: 0,
+          scrollHeight: 0,
+          ulHt: 0,
+          boxHt: 0
+        }
+      },
+      mounted () {
+      },
+      methods: {
+        touchStart (e) {
+          // console.log('start', e)
+          this.startY = e.targetTouches[0].pageY;
+          // console.log('this.startY', this.startY)
+        },
+        touchMove (e) {
+          // console.log('move', e)
+        },
+        touchEnd (e) {
+          // console.log('end', e)
+          this.endY = e.changedTouches[0].pageY;
+          // console.log('this.endY', this.endY)
+          this.getScrollHeight();
+        },
+        getScrollHeight () {
+          this.getBoxHeight();
+          this.getUlHeight();
+          // startY < endY 那么scrollHeight减少endY-startY的高度
+          // startY > endY 那么scrollHeight增加startY-endY的高度
+          // 最后神奇地发现两个式子一样
+          // scrollHeight的大小范围：0到（ul高度-box高度）+20px
+          // 小于0时让其为0，=ul高度-box高度时加载更多数据，=（ul高度-box高度）+20时刷新数据
+          // ul高度-box高度  （ul高度-box高度）+20  之间时让其为ul高度-box高度 
+          // >=（ul高度-box高度）+20 时让其为（ul高度-box高度）+20，并且在数据刷新后让其为ul高度-box高度
+
+          // 实现了一次的下拉刷新
+          this.scrollHeight = this.scrollHeight - this.endY + this.startY;
+
+          var htDiff = this.ulHt - this.boxHt;
+          var htDiffAdd = htDiff + 20;
+
+          this.newDate = this.lists;
+
+          if (this.scrollHeight < 0) {
+            this.scrollHeight = 0;
+          } else if (this.scrollHeight >= htDiff) {
+            this.getData();
+            if (this.scrollHeight >= htDiffAdd) {
+              this.freshDate();
+            }
+            this.scrollHeight = htDiff;
+          }
+          console.log('this.scrollHeight', this.scrollHeight)
+        },
+        getUlHeight () {
+          this.ulHt = this.$refs.ul.offsetHeight;
+        },
+        getBoxHeight () {
+          this.boxHt = this.$refs.box.offsetHeight;
+        },
+        getData () {
+          this.newDate = 40;
+        },
+        freshDate () {
+          this.lists = this.newDate;
+        }
+      }
+    };
+    let Ctor = Vue.extend(Main);
+    new Ctor().$mount('#app')
+  </script>
+</body>
+</html>

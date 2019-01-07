@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>input 的输入绑定</title>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>用 v-model 指令在表单 input、textarea 及 select 元素上创建双向数据绑定</p>
+    <p>v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源</p>
+    <input v-model="message">
+    <input v-bind:value="message" v-on:input="message = $event.target.value" />
+    <input :value="message" @input="message = $event.target.value" />
+
+    <p>oninput 事件在用户输入时触发。</p>
+    <p>该事件在 input或 textarea 元素的值发生改变时触发。</p>
+    <p>提示： 该事件类似于 onchange 事件。</p>
+    <p>不同之处1:</p>
+    <p>oninput 事件在元素值发生变化是立即触发， onchange 在元素失去焦点时触发</p>
+    <p>不同之处2:</p>
+    <p>onchange 事件也可以作用于 keygen 和 select 元素</p>
+
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
+
+    <select v-model="selected">
+      <option disabled value="">请选择</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+    <!-- 如果 v-model 表达式的初始值未能匹配任何选项，select 元素将被渲染为“未选中”状态。
+    在 iOS 中，这会使用户无法选择第一个选项。
+    因为这样的情况下，iOS 不会触发 change 事件。
+    因此，更推荐像上面这样提供一个值为空的禁用选项。 -->
+
+    <select v-model="selected2" multiple style="width: 50px;">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span>Selected2: {{ selected2 }}</span>
+
+    <select v-model="selected3">
+      <option v-for="option in options" v-bind:value="option.value">
+        {{ option.text }}
+      </option>
+    </select>
+    <span>selected3: {{ selected3 }}</span>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      checkedNames: [],
+      checked: false,
+      picked: '',
+      selected: '',
+      selected2: [],
+      selected3: 'A',
+      options: [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+      ]
+    },
+    mounted () {
+
+    },
+    methods: {
+
+    }
+  })
+</script>
+</html>

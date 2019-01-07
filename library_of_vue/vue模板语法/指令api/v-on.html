@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-on</title>
+  <style>
+    li {
+      list-style: none;
+    }
+    .decs {
+      text-indent: 32px;
+    }
+    .flex {
+      display: flex;
+    }
+    .flex1 {
+      flex: 1;
+      background-color: antiquewhite;
+      margin: 0 10px;
+    }
+    /* body { */
+      /* overflow-y: scroll;
+      overflow-x: auto; */
+      /* padding-left: calc(100vw - 100%); */
+      /* margin-right: calc(100vw - 100%);  */
+    /* } */
+    /* 滚动条的兼容写法 */
+    /* html {  
+      overflow-x: hidden;  
+      overflow-y: auto;  
+    }  
+    body {  
+      width: 100vw;  
+      overflow: hidden;  
+      padding-left: calc(100vw - 100%);  
+    } */
+  </style>
+  <!-- 开发环境 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app" class="wrap">
+    <h1>修饰符：</h1>
+    <li v-for="(item , index) in items" :key="index">
+      <p>{{ item.name }}</p>
+      <p class="decs">{{ item.decs }}</p>
+    </li>
+    <!-- 方法处理器 -->
+    <!-- <button v-on:click="doThis"></button> -->
+    <!-- 内联语句 -->
+    <!-- <button v-on:click="doThat('hello', $event)"></button> -->
+    <!-- 缩写 -->
+    <!-- <button @click="doThis"></button> -->
+    <!-- 停止冒泡 -->
+    <!-- <button @click.stop="doThis"></button> -->
+    <!-- 阻止默认行为 -->
+    <!-- <button @click.prevent="doThis"></button> -->
+    <!-- 阻止默认行为，没有表达式 -->
+    <!-- <form @submit.prevent></form> -->
+    <!--  串联修饰符 -->
+    <!-- <button @click.stop.prevent="doThis"></button> -->
+    <!-- 键修饰符，键别名 -->
+    <!-- <input @keyup.enter="onEnter"> -->
+    <!-- 键修饰符，键代码 -->
+    <!-- <input @keyup.13="onEnter"> -->
+    <!-- 点击回调只会触发一次 -->
+    <!-- <button v-on:click.once="doThis"></button> -->
+    <!-- 对象语法 (2.4.0+) -->
+    <!-- <button v-on="{ mousedown: doThis, mouseup: doThat }"></button> -->
+    <!-- <p>在子组件上监听自定义事件 (当子组件触发“my-event”时将调用事件处理器)：</p> -->
+    <!-- <my-component @my-event="handleThis"></my-component> -->
+    <!-- 内联语句 -->
+    <!-- <my-component @my-event="handleThis(123, $event)"></my-component> -->
+    <!-- 组件中的原生事件 -->
+    <!-- <my-component @click.native="onClick"></my-component> -->
+    <div class="flex">
+      <div class="flex1">1</div>
+      <div class="flex1">2</div>
+      <div class="flex1">3</div>
+    </div>
+    <p @click="showEvents">看滚轮的影响(解决不了，只能尽量避免)</p>
+    <ul v-show="showEvent">
+      <h1>js 常见事件</h1>
+      <li v-for="(event, evsi) in events" :key="event.id">
+        <h3>{{ evsi + 1 }}、{{ event.title }}</h3>
+        <p v-for="(ev, evi) in event.evs" :key="ev.id">
+          <span>{{ ev.evName }}</span>
+          <span>{{ ev.evDecs }}</span>
+        </p>
+      </li>
+    </ul>
+    <p>
+      altKey	返回当事件被触发时，"ALT" 是否被按下。
+      button	返回当事件被触发时，哪个鼠标按钮被点击。
+      clientX	返回当事件被触发时，鼠标指针的水平坐标。
+      clientY	返回当事件被触发时，鼠标指针的垂直坐标。
+      ctrlKey	返回当事件被触发时，"CTRL" 键是否被按下。
+      metaKey	返回当事件被触发时，"meta" 键是否被按下。
+      relatedTarget	返回与事件的目标节点相关的节点。
+      screenX	返回当某个事件被触发时，鼠标指针的水平坐标。
+      screenY	返回当某个事件被触发时，鼠标指针的垂直坐标。
+      shiftKey	返回当事件被触发时，"SHIFT" 键是否被按下。
+    </p>
+  </div>
+</body>
+<script>
+  var items = [
+    {
+      name: '.stop - 调用 event.stopPropagation()。',
+      decs: `事件捕获阶段：事件从最上一级标签开始往下查找，直到捕获到事件目标(target)。
+            事件冒泡阶段：事件从事件目标(target)开始，往上冒泡直到页面的最上一级标签。
+            绑定事件时通过addEventListener函数，它有三个参数，第三个参数若是true，则表示采用事件捕获，若是false，则表示采用事件冒泡
+            ele.addEventListener('click',doSomething2,true)。
+            IE只支持事件冒泡，不支持事件捕获，它也不支持addEventListener函数
+            ele.attachEvent("onclick", doSomething2);`
+    },
+    {
+      name: '.prevent - 调用 event.preventDefault()。',
+      decs: `stopPropagation（）取消冒泡
+            不是所有的事件都能冒泡，例如：blur、focus、load、unload
+            e.preventDefault() 阻止事件执行默认行为，比如submit`
+    },
+    {
+      name: '.capture - 添加事件侦听器时使用 capture 模式。',
+      decs: ''
+    },
+    {
+      name: '.self - 只当事件是从侦听器绑定的元素本身触发时才触发回调。',
+      decs: ''
+    },
+    {
+      name: '.{keyCode | keyAlias} - 只当事件是从特定键触发时才触发回调。',
+      decs: ''
+    },
+    {
+      name: '.native - 监听组件根元素的原生事件。',
+      decs: ''
+    },
+    {
+      name: '.once - 只触发一次回调。',
+      decs: ''
+    },
+    {
+      name: '.left - (2.2.0) 只当点击鼠标左键时触发。',
+      decs: ''
+    },
+    {
+      name: '.right - (2.2.0) 只当点击鼠标右键时触发。',
+      decs: ''
+    },
+    {
+      name: '.middle - (2.2.0) 只当点击鼠标中键时触发。',
+      decs: ''
+    },
+    {
+      name: '.passive - (2.3.0) 以 { passive: true } 模式添加侦听器',
+      decs: ''
+    },
+  ]
+  var events = [
+    { title: '窗口事件,只在body和frameset元素中才有效', id: 'tt-1',
+      evs: [ 
+        { evName: 'onload', evDecs: '页面或图片加载完成时', id: 'ev-1' },
+        { evName: 'onunload', evDecs: '用户离开页面时', id: 'ev-2' },
+      ] 
+    },
+    { title: '表单元素事件,在表单元素中才有效', id: 'tt-2',
+      evs: [ 
+        { evName: 'onchange', evDecs: '框内容改变时', id: 'ev-3' },
+        { evName: 'onsubmit', evDecs: '点击提交按钮时', id: 'ev-4' },
+        { evName: 'onreset', evDecs: '重新点击鼠标按键时', id: 'ev-5' },
+        { evName: 'onselect', evDecs: '文本被选择时', id: 'ev-6' },
+        { evName: 'onblur', evDecs: '元素失去焦点时', id: 'ev-7' },
+        { evName: 'onfocus', evDecs: '当元素获取焦点时', id: 'ev-8' },
+      ] 
+    },
+    { title: '键盘事件,在base,bdo,br,frame,frameset,head,html,iframe,meta,param,script,style,title元素里都无效', id: 'tt-3',
+      evs: [ 
+        { evName: 'onkeydown', evDecs: '按下键盘按键时', id: 'ev-9' },
+        { evName: 'onkeypress', evDecs: '按下或按住键盘按键时', id: 'ev-10' },
+        { evName: 'onkeyup', evDecs: '放开键盘按键时', id: 'ev-11' },
+      ] 
+    },
+    { title: '鼠标事件,在base,bdo,br,frame,frameset,head,html,iframe,meta,param,script,style,title元素里都无效', id: 'tt-4',
+      evs: [ 
+        { evName: 'onclick', evDecs: '鼠标点击一个对象时', id: 'ev-12' },
+        { evName: 'ondblclick', evDecs: '鼠标双击一个对象时', id: 'ev-13' },
+        { evName: 'onmousedown', evDecs: '鼠标被按下时', id: 'ev-14' },
+        { evName: 'onmousemove', evDecs: '鼠标被移动时', id: 'ev-15' },
+        { evName: 'onmouseout', evDecs: '鼠标离开元素时', id: 'ev-16' },
+        { evName: 'onmouseover', evDecs: '鼠标经过元素时', id: 'ev-17' },
+        { evName: 'onmouseup', evDecs: '释放鼠标按键时', id: 'ev-18' },
+      ] 
+    },
+    { title: '手指事件', id: 'tt-5',
+      evs: [ 
+        { evName: 'touchstart', evDecs: '当手指触碰到屏幕的时候触发', id: 'ev-19' },
+        { evName: 'touchmove', evDecs: '当手指在屏幕上滑动的时候触发', id: 'ev-20' },
+        { evName: 'touchend', evDecs: '当手指离开屏幕的时候时候触发', id: 'ev-21' },
+        { evName: 'touchcancel', evDecs: '当系统停止跟踪触摸的时候触发(这个事件很少会用，一般不做深入研究)', id: 'ev-22' },
+      ] 
+    },
+    { title: '其他', id: 'tt-6',
+      evs: [ 
+        { evName: 'onresize', evDecs: '当窗口或框架被重新定义尺寸时', id: 'ev-23' },
+        { evName: 'onabort', evDecs: '图片下载被打断时', id: 'ev-24' },
+        { evName: 'onerror', evDecs: '当加载文档或图片时发生错误时', id: 'ev-25' },
+      ] 
+    },
+    { title: '滚轮事件', id: 'tt-7',
+      evs: [ 
+        { evName: 'onmousewheel', evDecs: '不同浏览器用法各不相同，很需要兼容', id: 'ev-26' },
+      ]
+    },
+  ]
+  new Vue({
+    el: '#app',
+    data: {
+      showEvent: false,
+      items: items,
+      events: events
+    },
+    mounted () {
+
+    },
+    methods: {
+      showEvents () {
+        this.showEvent = !this.showEvent
+      }
+    }
+  })
+</script>
+</html>

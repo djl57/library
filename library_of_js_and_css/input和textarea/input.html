@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>input</title>
+</head>
+<body>
+  <input type="text" class="text" value="111">
+</body>
+<script>
+  let input = document.getElementsByClassName('text')[0];
+  let textValue = input.value;
+  console.log(`最初的input的value值${textValue}`);
+
+  input.addEventListener('change', textChange);
+  function textChange () {
+    let changeValue = input.value;
+    console.log(`input现在的值为${changeValue}`)
+  }
+
+  input.addEventListener('input', textChange);
+  function textChange () {
+    let changeValue = input.value;
+    console.log(`input失去焦点后的的值为${changeValue}`)
+  }
+
+  let value = '1000'
+  setTimeout(function () {
+    input.value = value;
+    console.log(`3s后input的值为${input.value}`)
+  }, 3000)
+</script>
+</html>

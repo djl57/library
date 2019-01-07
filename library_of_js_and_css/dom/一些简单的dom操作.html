@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>一些简单的dom操作</title>
+</head>
+<body>
+  
+</body>
+<script>
+  var body1 = document.getElementsByTagName('body')[0];
+  var body2 = document.body;
+  console.log('第一种获取body标签的方法：', body1);
+  console.log('第二种获取body标签的方法：', body2);
+  var div = document.createElement('div');
+  console.log('动态创建标签的方法', div);
+  div.setAttribute('id', 'div_id'); // 给创建的div设置一个名叫div_id的id
+  div.className = 'div_class'; // 给创建的div设置一个名叫div_class的class
+  body1.appendChild(div); // 将创建的div插入到body标签中
+  div.removeAttribute('id'); // 删除div的id属性
+  // 在创建的div里面添加p标签，并在p标签内添加内容
+  var p1 = document.createElement('p');
+  div.appendChild(p1);
+  p1.innerHTML = '我是p1通过innerHTML增加的内容';
+  var p2 = document.createElement('p');
+  div.appendChild(p2);
+  p2.innerText = '我是p2通过innerText增加的内容';
+  // 给div标签添加事件
+  // ???疑问：怎么给点击触发的函数加参数，需要在外面套一层function() {}
+  div.addEventListener('click', function() { clickDiv(12) });
+  function clickDiv(n) {
+    console.log('点击了div', n);
+  }
+  div.addEventListener('mouseover', moveDiv);
+  function moveDiv(e) {
+    console.log(e);
+  }
+  div.addEventListener('touchstart', touchDiv);
+  function touchDiv(e) {
+    console.log(e);
+  }
+  // 用p3覆盖原来的p2标签
+  var p3 = document.createElement('p');
+  p3.innerHTML = '我是替换p2的p3的内容';
+  if (p2) {
+    div.replaceChild(p3, p2);
+  }
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue配置模板的思路</title>
+</head>
+<body>
+  <div>
+    首先，梳理一下遇到的问题：
+    1、开发环境，打包环境的后台接口
+    2、ajax的封装（axios和fetch），接口的集中管理
+    3、通用数据的集中管理（比如下拉框的选项）
+    4、一些常用方法的封装
+    5、css的模块化？
+    6、路由的封装
+
+    以下是借鉴别人的一些设计思路：
+    ├── build                      // 构建相关  
+    ├── config                     // 配置相关
+    ├── src                        // 源代码
+    │   ├── api                    // 所有请求
+    │   ├── assets                 // 主题 字体等静态资源
+    │   ├── components             // 全局公用组件， 比如 上传组件、富文本组件
+    │   ├── directive              // 全局指令
+    │   ├── filtres                // 全局 filter
+    │   ├── icons                  // 项目所有 svg icons
+    │   ├── lang                   // 国际化 language
+    │   ├── mock                   // 项目mock 模拟数据
+    │   ├── router                 // 路由
+    │   ├── store                  // 全局 store管理， 比如 登录token、用户信息
+    │   ├── styles                 // 全局样式
+    │   ├── utils                  // 全局公用方法
+    │   ├── vendor                 // 公用vendor
+    │   ├── views                   // view
+    │   ├── App.vue                // 入口页面
+    │   ├── main.js                // 入口 加载组件 初始化等
+    │   └── permission.js          // 权限管理
+    ├── static                     // 第三方不打包资源
+    │   └── Tinymce                // 富文本
+    ├── .babelrc                   // babel-loader 配置
+    ├── eslintrc.js                // eslint 配置项
+    ├── .gitignore                 // git 忽略项
+    ├── favicon.ico                // favicon图标
+    ├── index.html                 // html模板
+    └── package.json               // package.json
+
+    其中，api和views一一对应
+
+  </div>
+</body>
+</html>

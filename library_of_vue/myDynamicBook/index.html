@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>我的可动态加载的书</title>
+  <link rel="stylesheet" href="./../../library_of_js_and_css/css/reset.css">
+  <style>
+    .books {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .book {
+      flex: 0 0 50%;
+      color: #333333;
+      text-align: center;
+    }
+    .book_view {
+      display: block;
+      margin: 20px;
+      padding: 20px 10px;
+      background-color: #eeeeee;
+      cursor: pointer;
+    }
+    .book_view:hover {
+      background-color: #aaaaaa;
+    }
+    .create_time {
+      font-size: 14px;
+      padding-top: 10px;
+    }
+  </style>
+  <!-- 开发环境 -->
+  <script src="./api.js"></script>
+  <script src="./books/javascript.js"></script>
+  <script src="./books/css.js"></script>
+  <script src="./books/html.js"></script>
+  <script src="./books/com.js"></script>
+  <script src="./data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- <script src="./../vue-2.5.18-beta.0/dist/vue.js"></script> -->
+</head>
+<body>
+  <div id="app">
+    <div class="wrap">
+      <ul class="books">
+        <li v-for="(book, index) in books" :key="book.id" class="book">
+          <a class="book_view" :href="href(book.id)">
+            <p>{{ book.name }}</p>
+            <p class="create_time">创建时间：{{ book.createTime }}</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script>
+  // 暂时理一下思路：
+  // index传id（是否需要把对象名称一起传过去）给page，
+  // 如果这个数对应的二叉树对象不存在，就新建一棵二叉树，
+  // 如果这个数对应的二叉树存在，页面中就显示这棵二叉树中的内容
+
+  // 在page页，可以进行增加、修改、删除操作，查看操作看后续需求再做
+  new Vue({
+    el: '#app',
+    data: {
+      books: books
+    },
+    mounted () {
+
+    },
+    methods: {
+      href (id) {
+        return `./page.html?id=${id}`
+      }
+    }
+  })
+</script>
+</html>
