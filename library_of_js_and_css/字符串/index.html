@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>字符串</title>
+</head>
+<body>
+  <script>
+    // var test = new Array();
+    // var test = [];
+    // var test = 1;
+    // var test = function() {}
+    // var test = null //Uncaught TypeError: Cannot read property 'constructor' of null
+    // var test = undefined; //Cannot read property 'constructor' of undefined
+    // var test = true;
+    // var test = {};
+    // var test = 'hello';
+    function Person (name) {
+      console.log('this', this)
+      this.name = name
+    }
+    let test = new Person('test')
+    console.log(test.name)
+    let hello = new Person('hello')
+    console.log(hello.name)
+    hello.name = 'bye'
+    console.log(hello.name)
+    console.log(test.name)
+    console.log(test.constructor)
+    console.log(Person.prototype.constructor)
+    if (test.constructor == Array) {
+      document.write("This is an Array");
+    } else if (test.constructor == Boolean) {
+      document.write("This is a Boolean");
+    } else if (test.constructor == Date) {
+      document.write("This is a Date");
+    } else if (test.constructor == String) {
+      document.write("This is a String");
+    } else if (test.constructor === Number) {
+      document.write("This is a Number");
+    } else if (test.constructor === Function) {
+      document.write("This is a Function");
+    } else if (test.constructor === Object) {
+      document.write("This is a Object");
+    }
+    // var s = 'str'
+    // var str = new String(s)
+    // var str2 = String(s)
+    // console.log(typeof str) // object
+    // console.log(typeof str2) // string
+
+    // let txt="百度"
+    // document.write(txt.anchor("baidu"))
+    // let anchor = document.getElementsByName('baidu')
+    // anchor[0].href = 'http://www.baidu.com'
+
+    // let str3 = 'djlun'
+    // document.write(str3)
+    // document.write(str3.big())
+    // document.write(str3.blink())
+    // document.write(str3.bold())
+    // document.write(str3.fixed())
+    // document.write(str3.fontsize(2))
+    // document.write(str3.italics())
+    // document.write(str3.link("http://www.w3school.com.cn"))
+    // document.write(str3.small())
+    // document.write(str3.strike())
+    // document.write(str3.sub())
+    // document.write(str.sup())
+
+    // let [strX, strY, strO] = ['hello ', 'world!', ' hahah']
+    // let strZ = strX.concat(strY, strO)
+    // document.write(strZ)
+    // str = 'world hello!'
+    // document.write(str.lastIndexOf("hello", 5))
+    // document.write(str.fontcolor('red'))
+    // console.log(str.valueOf())
+    // console.log(str.toString())
+    // document.write(str.substring(3))
+    // console.log(str.substring(3, 3))
+    // str="How are you doing today?"
+    // console.log(str.split(" "))
+
+    // let thing = ['10', '20']
+    // let thing = function () {}
+    // let thing = 'jjjiiil'
+    // let nonew = String(thing) // thing 任何可以被转换成字符串的值
+    // let hasnew = new String(thing)
+
+    String.prototype.name = 'djlun'
+    String.prototype.sayName = function () {
+      console.log(this) // String {"aaa"}
+      console.log(typeof this) // object
+      console.log(this.name) // djlun
+    }
+    String.prototype.sayNameArrow = () => {
+      console.log(typeof this) // 
+      console.log(this) // Window
+    }
+    let strNonew = 'aaa'
+    let strNew = new String('aaa')
+    // console.log('strNonew', strNonew) 
+    // console.log('strNonew.name', strNonew.name)
+    // console.log('strNew', strNew) 
+    // console.log('strNew.name', strNew.name) 
+    strNew.sayName()
+    strNew.sayNameArrow()
+
+    str = 'djl'
+    console.log(str.repeat(3))
+    console.log(str.padStart(5, 'ab')) // abdjl
+    console.log(str.padStart(10, 'ab')) // abababadjl
+    console.log(str.padEnd(10, 'ab')) // djlabababa
+
+    str = ' sjlun '
+    console.log(str)
+    console.log(str.trim())
+    
+
+    // console.log('nonew', typeof nonew)
+    // console.log('nonew', nonew)
+    // console.log('nonew', typeof hasnew)
+    // console.log('hasnew', hasnew)
+    // console.log(hasnew.valueOf())
+    // console.log(typeof hasnew.valueOf())
+    // let str5 = 'djlun'
+    // for(let i in str5) {
+    //   console.log(str5[i])
+    // }
+
+    // console.log(str5.charAt(0))
+    // console.log(str5.charCodeAt(0))
+
+    // let str6 = "How are you doing today?"
+    // let [...rest] = str6.split(' ')
+    // console.log(str6.split(''))
+    // console.log('rest', rest)
+    // let result = '', join
+    // for (let i in rest) {
+    //   console.log(rest[i])
+    //   result = result.concat(rest[i]+ ' ')
+    //   join = rest.join(' ')
+    // }
+    // console.log(result)
+    // console.log(join)
+  </script>
+</body>
+</html>

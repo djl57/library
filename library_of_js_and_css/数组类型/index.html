@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+
+  </div>
+  <script>
+    // let arr = [1, 2, 3]
+    // console.log(...arr)
+    // for (let i in arr) {
+    //   console.log(arr[i])
+    // }
+
+    // let forArr = (x, y, z) => {
+    //   console.log(x)
+    //   console.log(y)
+    //   console.log(z)
+    // }
+    // forArr(...arr)
+
+    // let arr = new Array()
+    // console.log(arr) // []
+    //                  // length: 0
+    //                  // __proto__: Array(0)
+
+    // let arr = new Array(10)
+    // console.log(arr) // (10) [empty × 10]
+    //                  // length: 10
+    //                  // __proto__: Array(0)
+
+    // let arr = new Array(10,20)
+    // console.log(arr) // (2) [10, 20]
+    //                  // 0: 10
+    //                  // 1: 20
+    //                  // length: 2
+    //                  // __proto__: Array(0)
+
+    // let arr = [1, 2, 3, 4, 5]
+    // // console.log(arr[0])
+    // arr.forEach((el, index, arr) => {
+    //   console.log(el)
+    //   console.log(index)
+    //   console.log(arr)
+    // })
+
+    // let arr = ['apple', 'banana', 'mango']
+    // let apple = arr.indexOf('apple')
+    // console.log(apple) // 0
+
+    // let arr = [1, 2]
+    // console.log(arr.push(3, 4))
+    // console.log(arr) // 
+
+    // let arr = [1,2]
+    // console.log(arr.unshift(9,0))
+    // console.log(arr)
+    // console.log(arr.pop())
+    // console.log(arr.shift())
+
+    // let arr = [1, 2, 3, 4, 5]
+    // console.log(arr.splice(1, 2)) // [2, 3]
+    // console.log(arr) // [1, 4, 5]
+    // console.log(arr.splice(1, 0)) // []
+    // console.log(arr.splice(1, 0, 2, 3)) // []
+    // console.log(arr) // [1, 2, 3, 4 ,5]
+
+    // let arr = [1,2,3,4]
+    // console.log(arr.slice.call(arr))
+    // console.log(arr.slice())
+    // console.log(arr.slice(1))
+    // console.log(arr.slice(1, 2))
+
+    // let arr = [1,2,3,4,5]
+    // console.log(arr.length)
+    // console.log(arr)
+    // arr[10] = 9
+    // console.log(arr.length)
+    // console.log(arr)
+    // arr.length = 7
+    // console.log(arr.length)
+    // console.log(arr)
+  
+    // myRe = /d(b+)(d)/i;
+    // myArray = myRe.exec("cdbBdbsbz");
+    // console.log(myArray)
+
+    // let arr = [1,2,3]
+    // console.log(Array.isArray(arr))
+    // let str = '1'
+    // console.log(Array.isArray(str))
+
+    // let arrayLike = {
+    //   "0": "a",
+    //   "1": "b",
+    //   "2": "c",
+    //   length: 3
+    // }
+    // let arr = ["a", "b", "c"]
+    // console.log(arrayLike)
+    // console.log(typeof arrayLike)
+    // console.log(arr)
+    // console.log([].slice.call(arrayLike))
+
+    // console.log(Array.from('string'))
+    // let s = new Set('123')
+    // console.log(s)
+    // console.log(Array.from(s))
+
+    // let se = new Set(['a', 'b'])
+    // console.log(se)
+    // console.log(Array.from(se))
+
+    // function fn () {
+    //   console.log(arguments)
+    //   console.log(Array.from(arguments))
+    // }
+    // fn(1,2,3)
+
+    // function combine() {
+    //   // let arr = [].concat.apply([], arguments)
+    //   let arr = [].concat.call(...arguments)
+    //   console.log(new Set(arr))
+    //   return Array.from(arr)
+    //   // return Array.from(new Set(arr))
+    // }
+    // let m = [1,2,3], n = [2,3,4]
+    // console.log(combine(m,n))
+
+    // let s1 = new Set()
+    // console.log(s1) // Set(0) {}
+    // let s2 = new Set('str')
+    // console.log(s2) // Set(3) {"s", "t", "r"}
+    // let s3 = new Set(['a', 'b', 'b'])
+    // console.log(s3) // Set(2) {"a", "b"}
+    // let s4 = new Set('ssstrrr')
+    // console.log(s4) // Set(3) {"s", "t", "r"}
+    // console.log(s4.size)
+    // let s5 = new Set(1) // number 1 is not iterable (cannot read property Symbol(Symbol.iterator))
+    // console.log(s5)
+    // let s6 = new Set({name:'djlun'}) //object is not iterable (cannot read property Symbol(Symbol.iterator))
+    // console.log(s6) 
+
+    // let s = new Set('asd')
+    // console.log(s.add('o'))
+    // console.log(s.clear())
+    // console.log(s)
+
+    // let s = new Set('abc')
+    // let setInter = s.entries()
+    // console.log(setInter.next())
+    // console.log(setInter.next())
+    // console.log(setInter.next())
+    // console.log(setInter.next())
+
+    // let s = new Set('abc')
+    // s.forEach((el, index, set) => {
+    //   console.log(`s[${index}] = ${el}`)
+    // })
+
+    // let s = new Set('abc')
+    // console.log(s.has('a')) // true
+    // let obj = { name: 'djlun' }
+    // s.add(obj)
+    // console.log(s.has(obj)) // true
+    // console.log(s.has({ name: 'djlun' })) // false
+    // s.add({ name: 'djlun' })
+    // console.log(s.has({ name: 'djlun' })) // false
+    // console.log(s)
+    // s.add({ name: 'djlun' })
+    // console.log(s) 
+
+    // let s = new Set('abc')
+    // // console.log(s.values())
+    // let sInter = s.values()
+    // console.log(sInter.next())
+    // console.log(sInter.next())
+    // console.log(sInter.next())
+    // console.log(sInter.next())
+
+    // let s = new Set('abc')
+    // // console.log(s.values())
+    // let sInter = s.keys()
+    // console.log(sInter.next())
+    // console.log(sInter.next())
+    // console.log(sInter.next())
+    // console.log(sInter.next())
+
+    // let s = new Set('abc')
+    // for (let i of s) {
+    //   console.log(i)
+    // }
+    // for(let i of s.keys()) {
+    //   console.log(i)
+    // }
+    // for(let i of s.values()) {
+    //   console.log(i)
+    // }
+    // for(let [el,i] of s.entries()) {
+    //   console.log(el + ' ' + i)
+    // }
+    // s.forEach((el, index) => {
+    //   console.log(`${el}: ${index}`)
+    // })
+
+    // let s = new Set(['a', 'b', 'c'])
+    // console.log(s)
+    // let arr = Array.from(s)
+    // console.log(arr)
+    
+    // let m = new Map('string') // Iterator value s is not an entry object at new Map
+    // let m = new Map(new Set('string')) // Iterator value s is not an entry object at new Map
+    // let m = new Map(['a', 'b']) // Iterator value a is not an entry object at new Map
+    // let m = new Map({name: 'djlun'}) // object is not iterable
+    // let m = new Map([{ name: 'djlun', age: 19 }]) // Map(1) {undefined => undefined}
+    // console.log(m)
+    // console.log(m.clear())
+    // console.log(m)
+    // console.log(m.set('name', 'djlun'))
+
+    // console.log(0 === -0)
+    // console.log(0 == -0)
+
+    // let m = new Map()
+    // console.log(m.set('name', 'djlun'))
+    // console.log(m.set('age', 24))
+    // console.log(m.set('age', 18))
+    // console.log(m.get('age')) // 18
+    // console.log(m.get('sex')) // undefined
+    // console.log(m.has('sex')) // false
+    // console.log(m.has('name')) // true
+    // console.log(m.set('sex', 0))
+    // m.forEach((el, index, map) => {
+    //   console.log(`${el} ${index} ${map}`)
+    // })
+    // console.log(m.entries())
+    // let mIter = m.entries()
+    // console.log(mIter.next())
+    // console.log(mIter.next())
+    // console.log(mIter.next())
+    // console.log(mIter.next())
+
+    // let mIter2 = m.keys()
+    // console.log(mIter2.next())
+    // console.log(mIter2.next())
+    // console.log(mIter2.next())
+    // console.log(mIter2.next())
+
+    // let mIter3 = m.values()
+    // console.log(mIter3.next())
+    // console.log(mIter3.next())
+    // console.log(mIter3.next())
+    // console.log(mIter3.next())
+
+    // let m = new Map()
+    // m.set({name:'djlun'}, '一个记录我的名字的对象')
+    // console.log(m.has({name:'djlun'})) // false
+    // console.log(m.get({name:'djlun'})) // undefined 
+    // m.set([{name:'djlun'}, {age: 19}], '一个记录我的信息的数组')
+    // console.log(m.has([{name:'djlun'}, {age: 19}])) // false
+    // console.log(m.get([{name:'djlun'}, {age: 19}])) // undefined 
+
+    // let m = new Map()
+    // let name = {name: 'djlun'}
+    //     age = {age: 19}
+    //     me = [{name: 'djlun'}, {age: 24}]
+    // m.set(name, '记录我名字的一个对象')
+    // m.set(age, '记录我年龄的一个对象')
+    // m.set(me, '记录我信息的一个数组')
+    // console.log(m.has(name)) // true
+    // console.log(m.get(me)) // 记录我信息的一个数组
+
+    // let obj = {}
+    // console.log(obj == {}) // false
+
+    // let arr = new Array(7)
+    // console.log(arr)
+    // let arrOf = Array.of(7)
+    // console.log(arrOf)
+    
+    // let arr = Array.of('a', 'b', 'c', 12, {name:'djlun'}) // (5) ["a", "b", "c", 12, {…}]
+    // console.log(arr)
+
+    // function arrayOf() {
+    //   return Array.prototype.slice.call(arguments)
+    // }
+    // arrayOf('a', 'b', 'c', 12, {name:'djlun'})
+
+    // console.log([].copyWithin.call({length: 5, 3: 1}, 0, 3))
+    // ({0:undefined,1:undefined,2:undefined,3: 1,4:undefined,5:undefined,length: 5}).copyWithin(0,3,5);
+    // 结果为：
+    // {0:1,1:undefined,2:undefined,3: 1,4:undefined,5:undefined,length: 5};
+    // 也就是
+    // {0:1,3:1,length:5}
+
+    // let arr = {
+    //   0: undefined,
+    //   1: undefined,
+    //   2: undefined,
+    //   3: 1,
+    //   4: undefined,
+    //   length: 5
+    // }
+    
+    // console.log(Array.from(arr).copyWithin(0, 3))
+
+    // ({0:undefined,1:undefined,2:undefined,3: 1,4:undefined,5:undefined,length: 5}).copyWithin(0,3,5);
+
+  // function copyWithin(target, start/*, end*/) {
+  //   // Steps 1-2.
+  //   if (this == null) {
+  //     throw new TypeError('this is null or not defined');
+  //   }
+
+  //   var O = Object(this);
+
+  //   // Steps 3-5.
+  //   var len = O.length >>> 0;
+
+  //   // Steps 6-8.
+  //   var relativeTarget = target >> 0;
+
+  //   var to = relativeTarget < 0 ?
+  //     Math.max(len + relativeTarget, 0) :
+  //     Math.min(relativeTarget, len);
+
+  //   // Steps 9-11.
+  //   var relativeStart = start >> 0;
+
+  //   var from = relativeStart < 0 ?
+  //     Math.max(len + relativeStart, 0) :
+  //     Math.min(relativeStart, len);
+
+  //   // Steps 12-14.
+  //   var end = arguments[2];
+  //   var relativeEnd = end === undefined ? len : end >> 0;
+
+  //   var final = relativeEnd < 0 ?
+  //     Math.max(len + relativeEnd, 0) :
+  //     Math.min(relativeEnd, len);
+
+  //   // Step 15.
+  //   var count = Math.min(final - from, len - to);
+
+  //   // Steps 16-17.
+  //   var direction = 1;
+
+  //   if (from < to && to < (from + count)) {
+  //     direction = -1;
+  //     from += count - 1;
+  //     to += count - 1;
+  //   }
+
+  //   // Step 18.
+  //   while (count > 0) {
+  //     if (from in O) {
+  //       O[to] = O[from];
+  //     } else {
+  //       delete O[to];
+  //     }
+
+  //     from += direction;
+  //     to += direction;
+  //     count--;
+  //   }
+
+  //   // Step 19.
+  //   return O;
+  // };
+
+  // let arr = [1, 2, 3]
+  // console.log(arr.fill(7))
+
+  // console.log([].fill.call({length:3}, 2))
+
+  // let arr = Array(3).fill({})
+  // console.log(arr)
+  // arr[0].djlun = 'djlun'
+  // console.log(arr)
+
+  // let arr = [1, 2, 3]
+  // console.log(arr.reverse())
+  // console.log(arr)
+  // arr[0] = 1
+  // console.log(arr)
+
+  // let arr = [5,9,3,5,3,2]
+  // console.log(arr.sort((a, b) => a-b))
+
+  // let str = 'hello'
+  // console.log(str.concat(' world!'))
+  // console.log(str)
+
+  // let arr = ['1']
+  // console.log(arr.concat(['2'], ['3']))
+  // arr[0] = 'oo'
+  // console.log(arr)
+  // console.log(arr.concat('aa'))
+
+  // let arr = [1,2,3]
+  // console.log(arr.includes(1))
+
+  // let arr = [1,2,3]
+  // console.log(arr.join('.'))
+
+  // let arr = [1,2,3,4,5,6]
+  // console.log(arr.slice(2,4))
+
+  // let arr = [1,2,3,4,5]
+  // console.log(arr.indexOf(1))
+  
+  // let arr = [{name:'djlun'}, {age: 90}]
+  // console.log(arr.toString())
+
+  // let arr = [1,2,3]
+  // console.log([...arr.keys()])
+
+  // let arr = ['w', 'y', 'k', 'o', 'p'];
+  // let eArr = arr.values();
+  // for (let letter of eArr) {
+  //   console.log(letter);
+  // }
+
+  // let arr = ['a', 'b', 'c', 'd' ,'e']
+  // let newarr = arr.map((el, index, arr) => {
+  //   console.log(`${el} ${index} ${arr}`)
+  //   return el
+  // })
+  // console.log(newarr)
+
+  // let numbers = [1, 4, 9];
+  // let roots = numbers.map(Math.sqrt); // [1,2,3]
+  // console.log(roots)
+  
+  // let arr = [1,2,3,45,6,7, undefined]
+  // // console.log(arr.filter((el) => el>4))
+  // console.log(arr)
+  // console.log(arr.filter(el => el!==undefined))
+
+  // let arr = [10, 8 ,6 ,5 ,4]
+
+  // let result = arr.reduce((ac, curEl, curIn) => {
+  //   console.log(ac)
+  //   console.log(curEl)
+  //   console.log(curIn)
+  //   return ac + curEl
+  // })
+  // console.log(result)
+
+  // var a = ['1', '2', '3', '4', '5']; 
+  // var left  = a.reduce(function(prev, cur)      { return prev + cur; }); 
+  // var right = a.reduceRight(function(prev, cur) { return prev + cur; }); 
+
+  // console.log(left);  // "12345"
+  // console.log(right); // "54321"
+
+  // let arr = [{x: 10}, {x:20}]
+  // let arrSum = arr.reduce((ac, curEl, curIn) => {
+  //   return ac.x + curEl.x
+  // })
+  // console.log(arrSum)
+
+  // let arr = [ [1,23,4],[3,4,5] ] 
+  // let result = arr.reduce((ac, curEl, curIn) => {
+  //   // return ac.concat(curEl)
+  //   return [...ac, ...curEl]
+  // }, [])
+  // console.log(result)
+
+  // let arr = ['a', 'b', 'c', 'a', 'a', 'b']
+  // let result = arr.reduce((ac, cur) => {
+  //   if (cur in ac) {
+  //     ac[cur]++
+  //   } else {
+  //     ac[cur] = 1
+  //   }
+  //   return ac
+  // }, {})
+  // console.log(result) // {a: 3, b: 2, c: 1}
+
+  // function groupBy (arr, key) {
+  //   return arr.reduce((ac, cur) => {
+  //     let newKey = cur[key]
+  //     if (!ac[newKey]) {
+  //       ac[newKey] = []
+  //     }
+  //     ac[newKey].push(cur)
+  //     return ac
+  //   }, {})
+  // }
+
+  // let arr = [
+  //   { name: 'djlun', age: 24 },
+  //   { name: 'zwenj', age: 23 },
+  //   { name: 'dylan', age: 22 },
+  //   { name: 'lj',    age: 18 },
+  //   { name: 'zpyan', age: 18 }
+  // ]
+  // let result = groupBy(arr, 'age')
+  // console.log(result)
+  // console.log(result[18])
+
+  // let arr = [
+  //   {
+  //     name: '嘉兴图书馆',
+  //     books: ['book1', 'book2', 'book3']
+  //   },
+  //   {
+  //     name: '平湖图书馆',
+  //     books: ['book4', 'book5', 'book6']
+  //   },
+  //   {
+  //     name: '海盐图书馆',
+  //     books: ['book7', 'book8', 'book9']
+  //   },
+  //   {
+  //     name: '嘉善图书馆',
+  //     books: ['book10', 'book11', 'book12']
+  //   }
+  // ]
+  // let result = arr.reduce((ac, cur) => {
+  //   return [...ac,...cur.books]
+  // },[])
+  // console.log(result)
+
+  // let arr = [1,2,3,4,3,,3,3,3,3,3,6,6,9]
+  // let result = arr.sort().reduce((ac, cur) => {
+  //   if (ac.length === 0 || ac[ac.length-1] !== cur) {
+  //     ac.push(cur)
+  //   }
+  //   return ac
+  // }, [])
+  // console.log(result)
+
+  // const double = x => x + x;
+  // const triple = x => 3 * x;
+  // const quadruple = x => 4 * x;
+
+  // // Function composition enabling pipe functionality
+  // // const pipe = (...functions) => input => functions.reduce(
+  // //   (acc, fn) => fn(acc),
+  // //   input
+  // // );
+  // const pipe = (...functions) => { 
+  //   return input => {
+  //     return functions.reduce((acc, fn) => {
+  //       return fn(acc)
+  //     },input);
+  //   }
+  // }
+
+  // // Composed functions for multiplication of specific values
+  // const multiply6 = pipe(double, triple);
+  // const multiply9 = pipe(triple, triple);
+  // const multiply16 = pipe(quadruple, quadruple);
+  // const multiply24 = pipe(double, triple, quadruple);
+
+  // // Usage
+  // let result1 = multiply6(6); // 36
+  // let result2 = multiply9(9); // 81
+  // let result3 = multiply16(16); // 256
+  // let result4 = multiply24(10); // 240
+
+  // console.log(result1)
+  // console.log(result2)
+  // console.log(result3)
+  // console.log(result4)
+
+  let double = x => 2 * x
+  let triple = x => 3 * x
+  let quadra = x => 4 * x
+  let penta = x => 5 * x
+
+  function Pipe(...fn) {
+    return input => {
+      return fn.reduce((ac, cur) => {
+        return cur(ac)
+      }, input)
+    }
+  }
+  
+  let fns = [double, triple, quadra, penta]
+  let dtqp = Pipe(...fns)
+  let result = dtqp(2) // 240
+  console.log(result)
+
+
+  </script>
+</body>
+</html>

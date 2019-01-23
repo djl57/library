@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>promise and async</title>
+</head>
+<body>
+  <button id="button">点击调用testPromise</button>
+  <p id="log"></p>
+  <button id="imgBtn">点击加载图片</button>
+  <script>
+    // let suc = {
+    //   code: 0,
+    //   msg: 'success',
+    //   data: [
+    //     'bangbangbnag.mp3'
+    //   ]
+    // }
+    // let err = {
+    //   code: 1,
+    //   msg: 'error',
+    //   data: null
+    // }
+    // function createAudioFileAsync (data, sucFn, errFn) {
+    //   setTimeout(() => {
+    //     if (data.code === 0) {
+    //       sucFn(data)
+    //     } else {
+    //       errFn(data)
+    //     }
+    //   }, 3000)
+    // }
+    // // 成功的回调函数
+    // function successCallback(result) {
+    //   console.log("声音文件创建成功: " + result.data);
+    // }
+    // // 失败的回调函数
+    // function failureCallback(error) {
+    //   console.log("声音文件创建失败: " + error.msg);
+    // }
+    // createAudioFileAsync(suc, successCallback, failureCallback) // 声音文件创建成功: bangbangbnag.mp3
+    // createAudioFileAsync(err, successCallback, failureCallback) // 声音文件创建失败: error
+
+    // let myPro = new Promise((resolve, reject) => {
+    //   //当异步代码执行成功时，我们才会调用resolve(...), 当异步代码失败时就会调用reject(...)
+    //   //在本例中，我们使用setTimeout(...)来模拟异步代码，实际编码时可能是XHR请求或是HTML5的一些API方法.
+    //   let data
+    //   setTimeout(() => {
+    //     data = { name: 'djlun', age: 18 }
+    //     resolve(data); //代码正常执行！
+    //   }, 3000);
+    // });
+    // myPro.then((res) => {
+    //   //successMessage的值是上面调用resolve(...)方法传入的值.
+    //   //successMessage参数不一定非要是字符串类型，这里只是举个例子
+    //   console.log("success:" + res);
+    // });
+
+    // let btn = document.getElementById('button')
+    // btn.addEventListener('click', testPromise)
+    // let promiseCount = 0;
+    // function testPromise() {
+    //   let thisPromiseCount = ++promiseCount;
+    //   let log = document.getElementById('log');
+    //   log.insertAdjacentHTML('beforeend', `(${thisPromiseCount}) 开始 (<small>同步代码开始</small>)<br/>`);
+    //   // 新构建一个 Promise 实例：使用Promise实现每过一段时间给计数器加一的过程，每段时间间隔为1~3秒不等
+    //   let p1 = new Promise((resolve, reject) => {
+    //     log.insertAdjacentHTML('beforeend', `(${thisPromiseCount}) Promise 开始 (<small>异步代码开始</small>)<br/>`);
+    //     window.setTimeout(() => {
+    //       resolve(thisPromiseCount);
+    //     }, Math.random() * 2000 + 1000);
+    //   });
+    //   // Promise 不论成功或失败都会调用 then
+    //   // catch() 只有当 promise 失败时才会调用
+    //   p1
+    //   .then((val) => {
+    //     log.insertAdjacentHTML('beforeend', `(${val}) Promise 已填充完毕 (<small>异步代码结束</small>)<br/>`);
+    //   })
+    //   .catch((reason) => {
+    //     console.log('处理失败的 promise ('+reason+')');
+    //   });
+    //   log.insertAdjacentHTML('beforeend', `(${thisPromiseCount}) Promise made (<small>同步代码结束</small>)<br/>`);
+    // }
+
+    // new Promise((resolve, reject) => {
+    //   throw new Error('Something failed');
+    //   console.log('Initial');
+    //   resolve();
+    // })
+    // .then(() => {
+    //   // throw new Error('Something failed');
+    //   console.log('Do this');
+    // })
+    // .catch(() => {
+    //   console.log('Do that');
+    // })
+    // .then(() => {
+    //   console.log('Do this whatever happened before');
+    // });
+    // Initial
+    // Do that
+    // Do this whatever happened before
+
+    // 过去：
+    // doSomething(function(result) {
+    //   doSomethingElse(result, function(newResult) {
+    //     doThirdThing(newResult, function(finalResult) {
+    //       console.log('Got the final result: ' + finalResult);
+    //     }, failureCallback);
+    //   }, failureCallback);
+    // }, failureCallback);
+
+    // function Fn1 (res, suc, err) {
+    //   res ? suc(`success : ${res}`) : err(`error : ${res}`)
+    // }
+    // function suc1 (s) {
+    //   console.log('Fn1成功返回：' + s)
+    // }
+    // function err1 (e) {
+    //   console.log('Fn1失败返回：' + e)
+    // }
+    // let res1 = 1
+    // // let res2 =  // Fn1成功返回：success : 1
+
+    // function Fn2 (fn, suc, err) {
+    //   fn(res1, suc1, err1) ? suc(`success : ${res}`) : err(`error : ${res}`)
+    // }
+    // function suc2 (s) {
+    //   console.log('Fn2成功返回：' + s)
+    //   return s
+    // }
+    // function err2 (e) {
+    //   console.log('Fn2失败返回：' + e)
+    //   return e
+    // }
+    // let res3 = Fn2(Fn1, suc2, err2) // Fn2失败返回：error : undefined
+
+
+    // let Pro1 = new Promise((resolve, reject) => {
+    //   let res1 = 1
+    //   res1 ? resolve(res1) : reject(res1)
+    // })
+    // let res2 = Pro1
+    // .then(res => console.log(`success : ${res}`))
+    // .catch(err => console.log(`error : ${err}`))
+
+    // 回调地狱
+    // function Log() {
+    //   setTimeout(() => {
+    //     console.log('我是一秒后打印的文字')
+    //     setTimeout(() => {
+    //       console.log('我是二秒后打印的文字')
+    //       setTimeout(() => {
+    //         console.log('我是三秒后打印的文字')
+    //       }, 3000)
+    //     }, 2000)
+    //   }, 1000)
+    // }
+
+    // 把每个方法都提炼出来
+    // let log1 = () => {
+    //   console.log('我是一秒后打印的文字')
+    //   setTimeout(log2, 2000)
+    // }
+    // let log2 = () => {
+    //   console.log('我是二秒后打印的文字')
+    //   setTimeout(log3, 3000)
+    // }
+    // let log3 = () => {
+    //   console.log('我是三秒后打印的文字')
+    // }
+    // function log() {
+    //   setTimeout(log1, 1000)
+    // }
+
+    // 使用 Promise
+    // 首先，一次回调
+    // let pro = new Promise((resolve, reject) => {
+    //   setTimeout(resolve, 1000)
+    // })
+    // pro
+    // .then(res => {
+    //   console.log('我是一秒后打印的文字')
+    // })
+    // .then(res => {
+    //   console.log(res)
+    // })
+    
+    // // 生成一个Promise实例
+    // const promise = new Promise((resolve, reject) => {
+
+    // })
+    // // then方法可以接受两个回调函数作为参数。
+    // // 第一个回调函数是Promise对象的状态变为resolved时调用，第二个回调函数是Promise对象的状态变为rejected时调用。
+    // // 其中，第二个函数是可选的，不一定要提供。
+    // // 这两个函数都接受Promise对象传出的值作为参数。
+    // promise
+    // .then()
+
+    // function timeout(ms) {
+    //   return new Promise((resolve, reject) => {
+    //     setTimeout(resolve, ms, 'done');
+    //   });
+    // }
+    // timeout(1000)
+    // .then((value) => {
+    //   console.log(value);
+    // })
+
+    // let promise = new Promise(function(resolve, reject) {
+    //   console.log('Promise');
+    //   resolve();
+    // });
+    // promise.then(function() {
+    //   console.log('resolved.');
+    // });
+    // console.log('Hi!');
+
+    // // Promise
+    // // Hi!
+    // // resolved.
+
+    // 建立图像对象：图像对象名称=new Image([宽度],[高度])
+    // 图像对象的属性： border complete height hspace lowsrc name src vspace width
+    // 图像对象的事件：onabort onerror onkeydown onkeypress onkeyup onload
+    // 需要注意的是：src 属性一定要写到 onload 的后面，否则程序在 IE 中会出错
+    // function loadImageAsync(url) {
+    //   return new Promise(function(resolve, reject) {
+    //     const image = new Image(100, 100);
+    //     image.onload = function() {
+    //       resolve(image);
+    //     };
+    //     image.onerror = function() {
+    //       reject(new Error('Could not load image at ' + url));
+    //     };
+    //     image.src = url;
+    //   });
+    // }
+    // let url = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548222934344&di=c802ba6a85d1efda1ccc9d71a058e704&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd1a20cf431adcbef1da6b62ba7af2edda3cc9f09.jpg'
+    // loadImageAsync(url)
+    // .then((res) => {
+    //   document.body.appendChild(res)
+    //   console.log(res) // <img width="100" height="100" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1548222934344&amp;di=c802ba6a85d1efda1ccc9d71a058e704&amp;imgtype=0&amp;src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd1a20cf431adcbef1da6b62ba7af2edda3cc9f09.jpg">
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
+
+    // const getJSON = function(url) {
+    //   const promise = new Promise(function(resolve, reject){
+    //     const handler = function() {
+    //       if (this.readyState !== 4) {
+    //         return;
+    //       }
+    //       if (this.status === 200) {
+    //         resolve(this.response);
+    //       } else {
+    //         reject(new Error(this.statusText));
+    //       }
+    //     };
+    //     const client = new XMLHttpRequest();
+    //     client.open("GET", url);
+    //     client.onreadystatechange = handler;
+    //     client.responseType = "json";
+    //     client.setRequestHeader("Accept", "application/json");
+    //     client.send();
+
+    //   });
+    //   return promise;
+    // };
+
+    // getJSON("./posts.json").then(function(json) {
+    //   console.log(json) // {code: 0, msg: "success", data: {…}}
+    //   console.log('Contents: ' + json); // Contents: [object Object]
+    // }, function(error) {
+    //   console.error('出错了', error);
+    // });
+    // then方法返回的依然是一个Promise，依旧可以使用then方法
+    // getJSON("./posts.json")
+    // .then((json) => {
+    //   console.log(json) // {code: 0, msg: "success", data: {…}}
+    //   return json;
+    // })
+    // .then((post) => {
+    //   console.log(post) // {code: 0, msg: "success", data: {…}}
+    //   return post
+    // })
+    // .then((post) => {
+    //   console.log(post) // {code: 0, msg: "success", data: {…}}
+    // });
+
+    // getJSON("./posts.json")
+    // .then(function(post) {
+    //   return getJSON(post.commentURL);
+    // })
+    // .then(function funcA(comments) {
+    //   console.log("resolved: ", comments); // resolved:  {data: Array(1)}
+    // }, function funcB(err){
+    //   console.log("rejected: ", err);
+    // });
+
+    // const p1 = new Promise(function (resolve, reject) {
+    //   setTimeout(() => reject('fail'/* new Error('fail') */), 3000)
+    // })
+    // const p2 = new Promise(function (resolve, reject) {
+    //   setTimeout(() => resolve(p1), 1000)
+    // })
+    // p2
+    // .then(res => {
+    //   console.log(`success: ${res}`)
+    // })
+    // .catch(err => {
+    //   console.log(`error: ${err}`)
+    // })
+
+    // // error: fail
+  </script>
+</body>
+</html>
