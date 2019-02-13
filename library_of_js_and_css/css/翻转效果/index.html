@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  	*{
+				margin: 0px;
+				padding: 0px;
+			}
+			body{
+				background-color: blue;
+			}
+			/* .elbum{
+				width: 300px;
+				height: 400px;
+				margin: 100px auto;
+				
+			} */
+			/* .outer{
+				position: absolute;
+				transform-origin: 0px 0px;
+				transition: 2s;
+				transition-timing-function: linear;
+			} */
+			/* .elbum:hover .outer{
+				transform: rotateY(-180deg);
+			} */
+			.bg{
+				width: 300px;
+				height: 300px;
+				margin: 100px auto;
+				/*border: 4px solid ;*/
+				position: relative;
+				transform-style: preserve-3d;
+				transition: 1s;
+			}
+			.left{
+				width: 300px;
+				height: 300px;
+				background: url(ani/cat.jpg) no-repeat 0px 0px;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				/*backface-visibility: hidden;*/
+			}
+			.right{
+				width: 300px;
+				height: 300px;
+				background: url(ani/timg.jpg) no-repeat -305px 0px;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				/*backface-visibility: hidden;*//*可以不要*/
+				transform: rotateY(180deg);/*真正起作用的是这句话,让背面的没有显示*/
+			}
+			.bg:hover{
+				transform: rotateY(180deg);
+			}
+
+  </style>
+</head>
+<body>
+    <div class="bg">
+				<div class="left">正面</div>
+				<div class="right">反面</div>
+		</div>
+
+</body>
+</html>

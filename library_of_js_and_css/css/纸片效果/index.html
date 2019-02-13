@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>纸片效果</title>
+  <style>
+  .paper {
+	position:relative;
+	width:200px;
+  height:250px;
+  padding: 10px;
+	background:#fff;
+	border:1px solid #eee;
+	float:left;
+	margin:10px;
+	box-shadow:0 0 5px rgba(0,0,0,0.27),0 0 10px  rgba(0,0,0,.1) inset;
+}
+.paper::after,.paper::before {
+	content:'';
+	position:absolute;
+	bottom:6px;
+	width:100px;
+	height:1px;
+	z-index:-1;
+	box-shadow:0 2px 12px 5px rgba(0,0,0,.3);
+}
+.paper::after {
+	left:4px;
+	transform:rotate(-6deg);
+}
+.paper::before {
+	right:4px;
+	transform:rotate(6deg);
+}
+  </style>
+  <!-- <style>
+    body {
+      background-color: #F6F8F9;
+    }
+    .paper {
+      width: 200px;
+      height: 50px;
+      background-color: #fff;
+      margin: auto;
+      position: relative;
+    }
+    .paper:before,
+    .paper:after {
+      content: '';
+      width: 90px;
+      height: 40px;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      z-index: -1;
+    }
+    .paper:before {
+      transform: rotate(-5deg);
+      transform-origin: top right;
+      left: 10px;
+    }
+    .paper:after {
+      transform: rotate(5deg);
+      transform-origin: top left;
+      right: 10px;
+    }
+  </style> -->
+</head>
+<body>
+  <div class="paper">年后</div>
+</body>
+</html>
