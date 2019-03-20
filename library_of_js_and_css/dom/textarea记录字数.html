@@ -16,17 +16,18 @@
     //字数限制
     window.onload = function() {
         //（document）
-        document.getElementById('note').onkeyup = function() {        
+        document.getElementById('note').onkeyup = function() {      
+            console.log('1')  
             document.getElementById('text-count').innerHTML=this.value.length;
         }
     //（jquery）
-        $('#note2').keyup(function() {
-        //    var val=$('#note2').val();
-        //    var len=val.length;
-        var len=this.value.length
-                    $('#text-count2').text(len);
+        // $('#note2').keyup(function() {
+        // //    var val=$('#note2').val();
+        // //    var len=val.length;
+        // var len=this.value.length
+        //             $('#text-count2').text(len);
 
-        })
+        // })
     }
 </script>
 <div>
@@ -36,10 +37,10 @@
                     placeholder="最多可输入100字"></textarea><span id="text-count" value="">0</span>/100
                     </div>
 <div>
-<textarea cols="40" rows="5" id="note2"
+<!-- <textarea cols="40" rows="5" id="note2"
                     name="note2" maxlength="100" value=""
                     onkeyup="this.value=this.value.substring(0, 100)"
                     placeholder="最多可输入100字"></textarea><span id="text-count2" value="">0</span>/100
-                    </div>
+                    </div> -->
  </body>
 </html>

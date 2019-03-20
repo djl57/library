@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <textarea name="text1" 
+            id="text1" 
+            cols="40" 
+            rows="5"
+            maxlength="100"
+            value=""
+            onkeyup="this.value=this.substring(0,100)"
+            placeholder="最多可输入100字"></textarea><span id="text-count" value="">0</span>/100
+  <script>
+    var text1 = document.getElementById('text1')
+    var textCount = document.getElementById('text-count')
+    text1.onkeyup = function() {
+      textCount.innerHTML = this.value.length
+    }
+  </script>
+</body>
+</html>
